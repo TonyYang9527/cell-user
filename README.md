@@ -15,3 +15,6 @@ git push origin master
 Git 权限控制
 http://www.cnblog.me/2016/04/04/git-permissions/
 http://www.cnblog.me/
+
+git管理系统模板
+https://github.com/pumadong/cl-privilege
