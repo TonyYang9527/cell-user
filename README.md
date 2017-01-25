@@ -30,3 +30,7 @@ https://gold.xitu.io/entry/57bfea55efa631005aa69630
 
 CI系统
 https://toutiao.io/tags/CI
+
+
+gitlab
+https://github.com/progit/progit/blob/master/zh/01-introduction/01-chapter1.markdown
