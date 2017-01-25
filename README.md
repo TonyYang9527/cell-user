@@ -34,3 +34,5 @@ https://toutiao.io/tags/CI
 
 gitlab
 https://github.com/progit/progit/blob/master/zh/01-introduction/01-chapter1.markdown
+
+http://www.w2bc.com/article/138943
