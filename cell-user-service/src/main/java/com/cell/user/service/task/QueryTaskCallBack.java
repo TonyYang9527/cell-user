@@ -13,6 +13,7 @@ public class QueryTaskCallBack implements FutureCallback<RoleVo> {
 
 	private StringBuilder result = new StringBuilder();
 
+	//消费接口
 	@Override
 	public void onSuccess(RoleVo vo) {
 		try {
@@ -24,6 +25,7 @@ public class QueryTaskCallBack implements FutureCallback<RoleVo> {
 		logger.info("onSuccess:{}", JSON.toJSONString(vo));
 	}
 
+	//回归接口
 	@Override
 	public void onFailure(Throwable throwable) {
 		logger.info("onFailure:{}", JSON.toJSONString(throwable));
@@ -33,4 +35,6 @@ public class QueryTaskCallBack implements FutureCallback<RoleVo> {
 	public String getCallbackResult() {
 		return result.toString();
 	}
+	
+	
 }
