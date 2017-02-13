@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
 import com.cell.user.vo.single.RoleVo;
 
-public class QueryJob implements Callable<RoleVo> {
+public class QueryTask implements Callable<RoleVo> {
 
-	private Logger logger = LoggerFactory.getLogger(QueryJob.class);
+	private Logger logger = LoggerFactory.getLogger(QueryTask.class);
 
 	@Override
 	public RoleVo call() throws Exception {
@@ -19,7 +19,7 @@ public class QueryJob implements Callable<RoleVo> {
 		vo.setCreatedTime(new Date());
 		vo.setCreatedBy("admin");
 		System.out.println("QueryJob vo :" +JSON.toJSONString(vo));
-		logger.info("req:{}", JSON.toJSONString(vo));
+		logger.info(" QueryTaskCall :{}", JSON.toJSONString(vo));
 		return vo;
 	}
 }

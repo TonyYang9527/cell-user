@@ -14,10 +14,10 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 
-public class ListenableFutureCallback {
+public class ListenableFutureDemo {
 
 	private static Logger logger = LoggerFactory
-			.getLogger(ListenableFutureCallback.class);
+			.getLogger(ListenableFutureDemo.class);
 	// 创建线程池
 	final static ListeningExecutorService service = MoreExecutors
 			.listeningDecorator(Executors.newCachedThreadPool());
@@ -27,6 +27,7 @@ public class ListenableFutureCallback {
 		Futures.addCallback(future, callback);
 	}
 
+	/*** 回调函数如果也是耗时的操作，请放到异步中处理 ****/
 	public <V> void execute2(Callable<V> call, FutureCallback<V> callback) {
 		ListenableFuture<V> future = service.submit(call);
 		Futures.addCallback(future, callback, service);
@@ -35,10 +36,6 @@ public class ListenableFutureCallback {
 	public static void main(String[] args) throws Exception {
 
 		Long t1 = System.currentTimeMillis();
-
-		ListenableFutureCallback test = new ListenableFutureCallback();
-		test.execute2(new QueryJob(), new QueryJobCallBack());
-
 		// 任务1
 		ListenableFuture<Boolean> booleanTask = service
 				.submit(new Callable<Boolean>() {
@@ -61,6 +58,7 @@ public class ListenableFutureCallback {
 
 			@Override
 			public void onFailure(Throwable t) {
+
 			}
 		});
 
@@ -113,33 +111,5 @@ public class ListenableFutureCallback {
 		logger.info(" time:{}",
 				JSON.toJSONString((System.currentTimeMillis() - t1)));
 	}
+
 }
-
-/*****
- 
- 
- ListeningExecutorService executor = ...
-List<Callable<Foo>> tasks = ...
-
-List<ListenableFuture<Foo>> futures = Lists.newArrayList();
-for (Callable<Foo> task : tasks) {
-  futures.add(executor.submit(task));
-}
-
-final ListenableFuture<List<Foo>> resultsFuture
-    = Futures.allAsList(futures);
-
-// block until all tasks are done
-List<Foo> results = resultsFuture.get();
-
-// or add a callback to get called when the tasks complete
-Futures.addCallback(resultsFuture, new FutureCallback<List<Foo>>() {
-  @Override public void onSuccess(List<Foo> results) {
-    // ...
-  }
-
-  @Override public void onFailure(Throwable throwable) {
-    // ...
-  }
-}, someExecutor);
- * ******/
