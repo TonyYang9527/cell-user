@@ -1,4 +1,4 @@
-package com.cell.user.service.job;
+package com.cell.user.service.task;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,17 +7,17 @@ import com.alibaba.fastjson.JSON;
 import com.cell.user.vo.single.RoleVo;
 import com.google.common.util.concurrent.FutureCallback;
 
-public class QueryTaskCallBack implements FutureCallback<RoleVo> {
+public class QueryUserCallBack implements FutureCallback<RoleVo> {
 
-	private Logger logger = LoggerFactory.getLogger(QueryTaskCallBack.class);
+	private Logger logger = LoggerFactory.getLogger(QueryUserCallBack.class);
 
 	private StringBuilder result = new StringBuilder();
 
 	@Override
 	public void onSuccess(RoleVo vo) {
 		try {
-			Thread.sleep(1800);
-			result.append(" successfully");
+			Thread.sleep(800);
+			result.append("query user  successfully");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
