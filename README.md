@@ -11,3 +11,28 @@ git push origin master
 注意，最后一步的时候GitHub 要求输入用户名和密码来进行身份校验，这里输入我们
 注册时填入的用户名和密码就可以了，如图14.13 所示。
 
+
+Git 权限控制
+http://www.cnblog.me/2016/04/04/git-permissions/
+http://www.cnblog.me/
+
+git管理系统模板
+https://github.com/pumadong/cl-privilege
+
+
+安卓学习博客
+http://blog.csdn.net/guolin_blog
+
+
+
+好工具和资源，在这里分享给大家：
+https://gold.xitu.io/entry/57bfea55efa631005aa69630
+
+CI系统
+https://toutiao.io/tags/CI
+
+
+gitlab
+https://github.com/progit/progit/blob/master/zh/01-introduction/01-chapter1.markdown
+
+http://www.w2bc.com/article/138943
