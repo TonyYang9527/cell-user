@@ -36,3 +36,12 @@ gitlab
 https://github.com/progit/progit/blob/master/zh/01-introduction/01-chapter1.markdown
 
 http://www.w2bc.com/article/138943
+
+
+
+Visual SVN + 花生壳 配置公网访问内网SVN服务器  
+http://blog.163.com/a13151055695@126/blog/static/112087074201252891143749/
+
+实现外网访问局域网内的SVN——花生壳+visiualSVN实现外网访问局域网内的SVN（三）
+http://blog.csdn.net/lu930124/article/details/47129727
+
