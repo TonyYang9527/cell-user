@@ -45,3 +45,6 @@ http://blog.163.com/a13151055695@126/blog/static/112087074201252891143749/
 实现外网访问局域网内的SVN——花生壳+visiualSVN实现外网访问局域网内的SVN（三）
 http://blog.csdn.net/lu930124/article/details/47129727
 
+
+公司局域网如何组建 公司局域网搭建方法
+http://www.360doc.com/content/16/0922/12/30414877_592749188.shtml
