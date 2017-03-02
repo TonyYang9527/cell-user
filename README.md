@@ -51,3 +51,7 @@ http://www.360doc.com/content/16/0922/12/30414877_592749188.shtml
 
 搭建基于springmvc+freemarker+maven的web项目 
 http://blog.csdn.net/zz_cl/article/details/52665536
+
+
+dubbo+springmvc整合实例 玩转分布式架构
+http://www.07net01.com/2016/04/1476064.html
