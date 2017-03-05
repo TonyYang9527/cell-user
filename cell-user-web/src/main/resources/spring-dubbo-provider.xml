@@ -20,6 +20,7 @@
 	<dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"
 		threads="${dubbo.protocol.threads}" threadpool="${dubbo.protocol.threadpool}"
 		dispatcher="${dubbo.protocol.dispatcher}" queues="0" />
+	
 	<dubbo:service interface="com.cell.user.ifacade.facade.GetRoleFacade"
 		ref="getRoleService"   cluster="failover"    />
 	<!-- 和本地bean一样实现服务 -->
