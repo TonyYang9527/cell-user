@@ -7,7 +7,7 @@ public class ListSysAuthorityCondition  implements Serializable{
 
 	private static final long serialVersionUID = -5825593034171055393L;
 
-    public String activityName;
+    public String sysAuthorityName;
 
   //  public List<ActivityState> activityState;
 

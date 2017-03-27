@@ -6,14 +6,14 @@ public class CreateSysAuthorityRsp extends BaseResponse {
 
 	private static final long serialVersionUID = 6163354126862607581L;
 
-	private int id ;
+	  private Long id;
 
-	public int getId() {
-		return id;
-	}
+	    public Long getId() {
+	        return id;
+	    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	    public void setId(Long id) {
+	        this.id = id;
+	    }
 	
 }
