@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cell.user.common.constant.Constants;
+import com.cell.user.constant.Constants;
 import com.cell.user.dao.entiy.Role;
 import com.cell.user.dao.mapper.RoleMapper;
 import com.cell.user.ifacade.facade.GetRoleFacade;
