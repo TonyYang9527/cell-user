@@ -1,5 +1,12 @@
 package com.cell.user.ifacade.response.user;
 
-public class ListSysUserRsp {
+import com.cell.user.ifacade.response.BaseResponse;
+
+public class ListSysUserRsp extends BaseResponse{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7975591152847382247L;
 
 }
