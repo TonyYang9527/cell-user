@@ -1,13 +1,16 @@
 package com.cell.user.ifacade.facade;
 
-import com.cell.user.ifacade.request.permission.ChangeSysPermissionReq;
 import com.cell.user.ifacade.request.permission.CreateSysPermissionReq;
 import com.cell.user.ifacade.request.permission.DeleteSysPermissionRsp;
+import com.cell.user.ifacade.request.permission.DisplaySysPermissionReq;
 import com.cell.user.ifacade.request.permission.GetSysPermissionReq;
+import com.cell.user.ifacade.request.permission.HideSysPermissionReq;
 import com.cell.user.ifacade.request.permission.ListSysPermissionReq;
 import com.cell.user.ifacade.request.permission.UpdateSysPermissionReq;
 import com.cell.user.ifacade.response.permission.CreateSysPermissionRsp;
+import com.cell.user.ifacade.response.permission.DisplaySysPermissionRsp;
 import com.cell.user.ifacade.response.permission.GetSysPermissionRsp;
+import com.cell.user.ifacade.response.permission.HideSysPermissionRsp;
 import com.cell.user.ifacade.response.permission.ListSysPermissionRsp;
 import com.cell.user.ifacade.response.permission.UpdateSysPermissionRsp;
 
@@ -54,12 +57,20 @@ public interface SysPermissionFacade {
 	public GetSysPermissionRsp getSysPermission(GetSysPermissionReq req);
 
 	/**
-	 * 显示/不显示权限信息
+	 * 显示权限信息
 	 * 
 	 * @param Req
 	 * @return
 	 */
-	public ChangeSysPermissionReq deleteSysPermission(ChangeSysPermissionReq req);
+	public DisplaySysPermissionRsp displaySysPermission(
+			DisplaySysPermissionReq req);
 
-	
+	/**
+	 * 不显示权限信息
+	 * 
+	 * @param Req
+	 * @return
+	 */
+	public HideSysPermissionRsp hideSysPermission(HideSysPermissionReq req);
+
 }

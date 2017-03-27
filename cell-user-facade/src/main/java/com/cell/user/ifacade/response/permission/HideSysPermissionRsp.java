@@ -1,5 +1,5 @@
 package com.cell.user.ifacade.response.permission;
 
-public class ChangeSysPermissionRsp {
+public class HideSysPermissionRsp {
 
 }
