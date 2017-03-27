@@ -23,7 +23,7 @@ import com.cell.user.ifacade.response.authority.GetSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.ListSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.UpdateSysAuthorityRsp;
 
-@Service("sysAuthorityService")
+@Service
 public class SysAuthorityService implements SysAuthorityFacade {
 
 	private Logger logger = LoggerFactory.getLogger(SysAuthorityService.class);
