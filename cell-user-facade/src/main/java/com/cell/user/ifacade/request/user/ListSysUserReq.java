@@ -1,5 +1,12 @@
 package com.cell.user.ifacade.request.user;
 
-public class ListSysUserReq {
+import com.cell.user.ifacade.request.BaseRequest;
+
+public class ListSysUserReq extends BaseRequest{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3983456715458692995L;
 
 }
