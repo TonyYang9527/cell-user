@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.cell.user.dao.mapper.SysRoleMapper;
-import com.cell.user.dao.mapper.SysRoleResourcePermissionMapper;
 import com.cell.user.ifacade.facade.SysRoleFacade;
 import com.cell.user.ifacade.request.role.ChangeSysRoleReq;
 import com.cell.user.ifacade.request.role.CheckSysRoleReq;

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.cell.user.dao.mapper.SysRoleMapper;
 import com.cell.user.dao.mapper.SysUserMapper;
 import com.cell.user.ifacade.facade.SysUserFacade;
 import com.cell.user.ifacade.request.user.ChangeAdminSysUserReq;

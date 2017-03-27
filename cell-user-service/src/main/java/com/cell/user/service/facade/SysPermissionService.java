@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.cell.user.dao.mapper.SysAuthorityMapper;
 import com.cell.user.dao.mapper.SysPermissionMapper;
 import com.cell.user.ifacade.facade.SysPermissionFacade;
 import com.cell.user.ifacade.request.permission.ChangeSysPermissionReq;
