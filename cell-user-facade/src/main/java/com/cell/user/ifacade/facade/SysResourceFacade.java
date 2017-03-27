@@ -1,11 +1,13 @@
 package com.cell.user.ifacade.facade;
 
 import com.cell.user.ifacade.request.resource.ChangeSysResourceRsp;
+import com.cell.user.ifacade.request.resource.CheckSysResourceReq;
 import com.cell.user.ifacade.request.resource.CreateSysResourceReq;
 import com.cell.user.ifacade.request.resource.DeleteSysResourceRsp;
 import com.cell.user.ifacade.request.resource.GetSysResourceReq;
 import com.cell.user.ifacade.request.resource.ListSysResourceReq;
 import com.cell.user.ifacade.request.resource.UpdateSysResourceReq;
+import com.cell.user.ifacade.response.resource.CheckSysResourceRsp;
 import com.cell.user.ifacade.response.resource.CreateSysResourceRsp;
 import com.cell.user.ifacade.response.resource.GetSysResourceRsp;
 import com.cell.user.ifacade.response.resource.ListSysResourceRsp;
@@ -79,4 +81,13 @@ public interface SysResourceFacade {
 	 * @return
 	 */
 	public ChangeSysResourceRsp changeWeightSysResource(ChangeSysResourceRsp req);
+	
+	
+	/**
+	 *校验菜单信息
+	 * 
+	 * @param Req
+	 * @return
+	 */
+	public CheckSysResourceRsp checkSysResource(CheckSysResourceReq req);
 }
