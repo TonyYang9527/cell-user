@@ -13,7 +13,7 @@ import com.cell.user.ifacade.response.permission.UpdateSysPermissionRsp;
 public interface SysPermissionFacade {
 
 	/**
-	 * 创建用户授权信息
+	 * 创建权限信息
 	 * 
 	 * @param Req
 	 * @return
@@ -21,7 +21,7 @@ public interface SysPermissionFacade {
 	public CreateSysPermissionRsp createSysPermission(CreateSysPermissionReq req);
 
 	/**
-	 * 更新用户授权信息
+	 * 更新权限信息
 	 * 
 	 * @param Req
 	 * @return
@@ -29,7 +29,7 @@ public interface SysPermissionFacade {
 	public UpdateSysPermissionRsp updateSysPermission(UpdateSysPermissionReq req);
 
 	/**
-	 * 删除用户授权信息
+	 * 删除权限信息
 	 * 
 	 * @param Req
 	 * @return
@@ -37,7 +37,7 @@ public interface SysPermissionFacade {
 	public DeleteSysPermissionRsp deleteSysPermission(DeleteSysPermissionRsp req);
 
 	/**
-	 * 查询用户授权列表
+	 * 查询权限列表
 	 * 
 	 * @param Req
 	 * @return
@@ -45,7 +45,7 @@ public interface SysPermissionFacade {
 	public ListSysPermissionRsp listSysPermission(ListSysPermissionReq req);
 
 	/**
-	 * 查询用户授权列表
+	 * 查询权限列表
 	 * 
 	 * @param Req
 	 * @return
