@@ -1,5 +1,6 @@
 package com.cell.user.ifacade.facade;
 
+import com.cell.user.ifacade.request.permission.ChangeSysPermissionReq;
 import com.cell.user.ifacade.request.permission.CreateSysPermissionReq;
 import com.cell.user.ifacade.request.permission.DeleteSysPermissionRsp;
 import com.cell.user.ifacade.request.permission.GetSysPermissionReq;
@@ -51,5 +52,14 @@ public interface SysPermissionFacade {
 	 * @return
 	 */
 	public GetSysPermissionRsp getSysPermission(GetSysPermissionReq req);
+
+	/**
+	 * 显示/不显示权限信息
+	 * 
+	 * @param Req
+	 * @return
+	 */
+	public ChangeSysPermissionReq deleteSysPermission(ChangeSysPermissionReq req);
+
 	
 }
