@@ -9,10 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.cell.user.condition.ListSysAuthorityCondition;
 import com.cell.user.dao.entiy.SysAuthority;
 import com.cell.user.dao.entiy.SysAuthorityExample;
 import com.cell.user.dao.mapper.SysAuthorityMapper;
+import com.cell.user.ifacade.request.authority.CreateSysAuthorityReq;
+import com.cell.user.ifacade.request.authority.UpdateSysAuthorityReq;
 import com.cell.user.page.PageResult;
+import com.cell.user.service.util.TransformUtil;
 import com.cell.user.vo.single.SysAuthorityVo;
 
 @Service("sysAuthorityInternalService")
@@ -20,7 +24,7 @@ public class SysAuthorityInternalService {
 
 	private Logger logger = LoggerFactory
 			.getLogger(SysAuthorityInternalService.class);
-	
+
 	@Resource
 	protected SysAuthorityMapper sysAuthorityMapper;
 
@@ -33,8 +37,9 @@ public class SysAuthorityInternalService {
 	 */
 	public SysAuthority getSysAuthorityById(Long id) {
 
-		SysAuthority  authority = sysAuthorityMapper.selectByPrimaryKey(id);
-		logger.info("getSysAuthorityById  id:{},authority:{}", JSON.toJSONString(id),  JSON.toJSONString(authority));
+		SysAuthority authority = sysAuthorityMapper.selectByPrimaryKey(id);
+		logger.info("getSysAuthorityById  id:{},authority:{}",
+				JSON.toJSONString(id), JSON.toJSONString(authority));
 		if (authority != null) {
 			return authority;
 		}
@@ -47,10 +52,19 @@ public class SysAuthorityInternalService {
 	 * @param vo
 	 * @return id
 	 */
-	public long createSysAuthority(SysAuthorityVo vo) {
+	public Long createSysAuthority(CreateSysAuthorityReq req) {
 		SysAuthority authority = new SysAuthority();
 		authority.setId(null);
+		authority.setOrganizationId(req.getOrganizationId());
+		authority.setJobId(req.getJobId());
+		authority.setUserId(req.getUserId());
+		authority.setGroupId(req.getGroupId());
+		authority.setRoleIds(req.getRoleIds());
+		authority.setType(req.getType());
 		sysAuthorityMapper.insertSelective(authority);
+		logger.info("createSysAuthority  authority:{}",
+				JSON.toJSONString(authority));
+		// 后面加入缓存
 		return authority.getId();
 	}
 
@@ -60,13 +74,18 @@ public class SysAuthorityInternalService {
 	 * @param activity
 	 * @return
 	 */
-	public boolean updateSysAuthority(SysAuthorityVo vo) {
-		SysAuthority authority = new SysAuthority();
+	public boolean updateSysAuthority(UpdateSysAuthorityReq req) {
+
+		SysAuthority authority = TransformUtil.transSysAuthority(req);
+
 		SysAuthorityExample example = new SysAuthorityExample();
 		SysAuthorityExample.Criteria c = example.createCriteria();
 		c.andIdEqualTo(authority.getId());
 
+		logger.info("updateSysAuthority  authority:{}",
+				JSON.toJSONString(authority));
 		sysAuthorityMapper.updateByExampleSelective(authority, example);
+
 		return true;
 	}
 
@@ -76,14 +95,13 @@ public class SysAuthorityInternalService {
 	 * @param id
 	 * @return int
 	 */
-	public boolean deleteSysAuthority(long sysAuthorityId, String deletedBy,
-			List<Byte> inStates) {
-
-		SysAuthority activity = new SysAuthority();
+	public boolean deleteSysAuthorityById(long sysAuthorityId) {
 
 		SysAuthorityExample example = new SysAuthorityExample();
 		SysAuthorityExample.Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(sysAuthorityId);
+		logger.info("deleteSysAuthorityById  sysAuthorityId:{}",
+				JSON.toJSONString(sysAuthorityId));
 		sysAuthorityMapper.deleteByExample(example);
 		return true;
 	}
@@ -112,25 +130,11 @@ public class SysAuthorityInternalService {
 	 * @param record
 	 * @return int
 	 */
-	public int countSysAuthority() {
+	public int countSysAuthority(ListSysAuthorityCondition condition ) {
 
 		SysAuthorityExample example = new SysAuthorityExample();
 		SysAuthorityExample.Criteria criteria = example.createCriteria();
-
 		return sysAuthorityMapper.countByExample(example);
-	}
-
-	/**
-	 * 根据主键获取SysAuthority相关信息
-	 *
-	 * @param id
-	 *            the id
-	 * @return SysAuthorityVo
-	 */
-	public SysAuthorityVo querySysAuthorityById(Long id) {
-		SysAuthority authority = getSysAuthorityById(id);
-		SysAuthorityVo vo = new SysAuthorityVo();
-		return vo;
 	}
 
 	public boolean checkSysAuthorityState(List<Byte> inStates) {

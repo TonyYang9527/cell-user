@@ -1,33 +1,24 @@
 package com.cell.user.ifacade.request.authority;
 
-import java.util.Date;
-
 import com.cell.user.ifacade.request.BaseRequest;
 
-public class UpdateSysAuthorityReq extends BaseRequest{
-
+public class UpdateSysAuthorityReq extends BaseRequest {
 
 	private static final long serialVersionUID = -3635553154866737026L;
 
-	 /*
-     * 活动ID
-     */
-    private Long id;
+	private Long id;
 
-    /*
-     * 活动名字
-     */
-    private String name;
+	private Long organizationId;
 
-    /*
-     * 起始时间
-     */
-    private Date startTime;
+	private Long jobId;
 
-    /*
-     * 结束时间
-     */
-    private Date endTime;
+	private Long userId;
+
+	private Long groupId;
+
+	private String roleIds;
+
+	private Boolean type;
 
 	public Long getId() {
 		return id;
@@ -37,29 +28,52 @@ public class UpdateSysAuthorityReq extends BaseRequest{
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Long getOrganizationId() {
+		return organizationId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setOrganizationId(Long organizationId) {
+		this.organizationId = organizationId;
 	}
 
-	public Date getStartTime() {
-		return startTime;
+	public Long getJobId() {
+		return jobId;
 	}
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+	public void setJobId(Long jobId) {
+		this.jobId = jobId;
 	}
 
-	public Date getEndTime() {
-		return endTime;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+
+	public String getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(String roleIds) {
+		this.roleIds = roleIds;
+	}
+
+	public Boolean getType() {
+		return type;
+	}
+
+	public void setType(Boolean type) {
+		this.type = type;
+	}
 
 }

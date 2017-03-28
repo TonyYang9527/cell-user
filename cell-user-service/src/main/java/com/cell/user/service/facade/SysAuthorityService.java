@@ -4,12 +4,11 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cell.user.constant.Constants;
 import com.cell.user.dao.entiy.SysAuthority;
-import com.cell.user.dao.entiy.SysAuthorityExample;
-import com.cell.user.dao.entiy.SysAuthorityExample.Criteria;
 import com.cell.user.dao.mapper.SysAuthorityMapper;
 import com.cell.user.ifacade.facade.SysAuthorityFacade;
 import com.cell.user.ifacade.request.authority.CreateSysAuthorityReq;
@@ -22,25 +21,43 @@ import com.cell.user.ifacade.response.authority.DeleteSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.GetSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.ListSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.UpdateSysAuthorityRsp;
+import com.cell.user.service.check.CheckSysAuthorityReqParaService;
+import com.cell.user.service.internal.SysAuthorityInternalService;
 
 @Service
 public class SysAuthorityService implements SysAuthorityFacade {
 
 	private Logger logger = LoggerFactory.getLogger(SysAuthorityService.class);
+
 	@Resource
 	protected SysAuthorityMapper sysAuthorityMapper;
+
+	@Resource
+	protected SysAuthorityInternalService authorityService;
+
+	@Autowired
+	private CheckSysAuthorityReqParaService checkReqParaService;
 
 	@Override
 	public CreateSysAuthorityRsp createSysAuthority(CreateSysAuthorityReq req) {
 
-		CreateSysAuthorityRsp rsp = new CreateSysAuthorityRsp();
+		CreateSysAuthorityRsp rsp = checkReqParaService
+				.checkCreateActivityReq(req);
 
-		SysAuthority record = new SysAuthority();
-		int id = sysAuthorityMapper.insertSelective(record);
-		rsp.setId(id);
-		rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
-		rsp.setRetMsg(Constants.SUCCESS);
-		logger.info("req:{},rsp:{}", req, rsp);
+		if (Constants.RESPONSE_SUCCESS_CODE.equals(rsp.getRetCode())) {
+			Long sysAuthorityId = authorityService.createSysAuthority(req);
+			if (sysAuthorityId > 0) {
+				rsp.setId(sysAuthorityId);
+				rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
+				rsp.setRetMsg("创建用户权限成功");
+			} else {
+				rsp.setId(sysAuthorityId);
+				rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
+				rsp.setRetMsg("创建用户权限失败");
+			}
+		}
+
+		logger.info("createSysAuthority req:{},rsp:{}", req, rsp);
 		return rsp;
 	}
 
@@ -49,15 +66,21 @@ public class SysAuthorityService implements SysAuthorityFacade {
 
 		UpdateSysAuthorityRsp rsp = new UpdateSysAuthorityRsp();
 
-		SysAuthority record = new SysAuthority();
+		SysAuthority old = authorityService.getSysAuthorityById(req.getId());
+		if (old == null) {
+			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
+			rsp.setRetMsg("更新用户权限失败");
+			return rsp;
+		}
 
-		SysAuthorityExample example = new SysAuthorityExample();
-		Criteria criteria = example.createCriteria();
-		Long id = null;
-		criteria.andIdEqualTo(id);
-
-		int count = sysAuthorityMapper.updateByExample(record, example);
-
+		boolean retValue = authorityService.updateSysAuthority(req);
+		if (retValue) {
+			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
+			rsp.setRetMsg("更新用户权限成功");
+		} else {
+			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
+			rsp.setRetMsg("更新用户权限失败");
+		}
 		logger.info("req:{},rsp:{}", req, rsp);
 		return rsp;
 	}
@@ -67,6 +90,23 @@ public class SysAuthorityService implements SysAuthorityFacade {
 
 		DeleteSysAuthorityRsp rsp = new DeleteSysAuthorityRsp();
 
+		SysAuthority authority = authorityService.getSysAuthorityById(req
+				.getId());
+		if (authority == null) {
+			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
+			rsp.setRetMsg("删除用户权限失败");
+			return rsp;
+		}
+		boolean retValue = authorityService.deleteSysAuthorityById(req.getId());
+
+		if (retValue) {
+			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
+			rsp.setRetMsg("删除用户权限成功");
+		} else {
+			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
+			rsp.setRetMsg("删除用户权限失败");
+		}
+		logger.info("req:{},rsp:{}", req, rsp);
 		return rsp;
 	}
 
