@@ -58,7 +58,7 @@ public class TransformUtil {
 		result.setOrganizationId(authority.getOrganizationId());
 		
 		List<String> list= Splitter.on(",").trimResults().splitToList(authority.getRoleIds());
-		result.setRoleIds(list);
+		result.setRoleIds(null);
 		result.setType(authority.getType());
 		result.setUserId(authority.getUserId());
 		return result;
