@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.cell.user.constant.Constants;
 import com.cell.user.dao.entiy.SysAuthority;
-import com.cell.user.dao.mapper.SysAuthorityMapper;
 import com.cell.user.ifacade.facade.SysAuthorityFacade;
 import com.cell.user.ifacade.request.authority.CreateSysAuthorityReq;
 import com.cell.user.ifacade.request.authority.DeleteSysAuthorityReq;
@@ -21,17 +21,15 @@ import com.cell.user.ifacade.response.authority.DeleteSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.GetSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.ListSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.UpdateSysAuthorityRsp;
+import com.cell.user.page.PageResult;
 import com.cell.user.service.check.CheckSysAuthorityReqParaService;
 import com.cell.user.service.internal.SysAuthorityInternalService;
+import com.cell.user.vo.single.SysAuthorityVo;
 
 @Service
 public class SysAuthorityService implements SysAuthorityFacade {
 
 	private Logger logger = LoggerFactory.getLogger(SysAuthorityService.class);
-
-	@Resource
-	protected SysAuthorityMapper sysAuthorityMapper;
-
 	@Resource
 	protected SysAuthorityInternalService authorityService;
 
@@ -65,7 +63,7 @@ public class SysAuthorityService implements SysAuthorityFacade {
 	public UpdateSysAuthorityRsp updateSysAuthority(UpdateSysAuthorityReq req) {
 
 		UpdateSysAuthorityRsp rsp = new UpdateSysAuthorityRsp();
-
+		// 添加校验
 		SysAuthority old = authorityService.getSysAuthorityById(req.getId());
 		if (old == null) {
 			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
@@ -81,7 +79,7 @@ public class SysAuthorityService implements SysAuthorityFacade {
 			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
 			rsp.setRetMsg("更新用户权限失败");
 		}
-		logger.info("req:{},rsp:{}", req, rsp);
+		logger.info("updateSysAuthority req:{},rsp:{}", req, rsp);
 		return rsp;
 	}
 
@@ -89,7 +87,7 @@ public class SysAuthorityService implements SysAuthorityFacade {
 	public DeleteSysAuthorityRsp deleteSysAuthority(DeleteSysAuthorityReq req) {
 
 		DeleteSysAuthorityRsp rsp = new DeleteSysAuthorityRsp();
-
+		// 添加校验
 		SysAuthority authority = authorityService.getSysAuthorityById(req
 				.getId());
 		if (authority == null) {
@@ -106,22 +104,33 @@ public class SysAuthorityService implements SysAuthorityFacade {
 			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
 			rsp.setRetMsg("删除用户权限失败");
 		}
-		logger.info("req:{},rsp:{}", req, rsp);
+		logger.info("deleteSysAuthority req:{},rsp:{}", req, rsp);
 		return rsp;
 	}
 
 	@Override
 	public ListSysAuthorityRsp listSysAuthority(ListSysAuthorityReq req) {
-
 		ListSysAuthorityRsp rsp = new ListSysAuthorityRsp();
-
+		// 添加校验
+		if (req.getCondition() != null) {
+			logger.info("listSysAuthority Condition :  "
+					+ JSON.toJSONString(req.getCondition()));
+			PageResult<SysAuthorityVo> result = authorityService
+					.listSysAuthority(req.getCondition(), req.getPage());
+			rsp.setResult(result);
+			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
+			rsp.setRetMsg("分页查询活动成功");
+		} else {
+			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
+			rsp.setRetMsg("查询条件为空");
+		}
+		logger.info("listSysAuthority req:{},rsp:{}", req, rsp);
 		return rsp;
 	}
 
 	@Override
 	public GetSysAuthorityRsp getSysAuthority(GetSysAuthorityReq req) {
 		GetSysAuthorityRsp rsp = new GetSysAuthorityRsp();
-
 		return rsp;
 	}
 

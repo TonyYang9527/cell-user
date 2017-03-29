@@ -1,6 +1,7 @@
 package com.cell.user.vo.single;
 
 import java.io.Serializable;
+import java.util.Set;
 
 public class SysAuthorityVo implements Serializable {
 
@@ -16,9 +17,9 @@ public class SysAuthorityVo implements Serializable {
 
 	private Long groupId;
 
-	private String roleIds;
-
 	private Boolean type;
+
+	private Set<Long> roleIds;
 
 	public Long getId() {
 		return id;
@@ -60,14 +61,6 @@ public class SysAuthorityVo implements Serializable {
 		this.groupId = groupId;
 	}
 
-	public String getRoleIds() {
-		return roleIds;
-	}
-
-	public void setRoleIds(String roleIds) {
-		this.roleIds = roleIds == null ? null : roleIds.trim();
-	}
-
 	public Boolean getType() {
 		return type;
 	}
@@ -75,4 +68,13 @@ public class SysAuthorityVo implements Serializable {
 	public void setType(Boolean type) {
 		this.type = type;
 	}
+
+	public Set<Long> getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(Set<Long> roleIds) {
+		this.roleIds = roleIds;
+	}
+
 }

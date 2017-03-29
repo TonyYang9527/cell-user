@@ -1,5 +1,6 @@
 package com.cell.user.service.internal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,6 +8,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.cell.user.condition.ListSysAuthorityCondition;
@@ -15,9 +17,11 @@ import com.cell.user.dao.entiy.SysAuthorityExample;
 import com.cell.user.dao.mapper.SysAuthorityMapper;
 import com.cell.user.ifacade.request.authority.CreateSysAuthorityReq;
 import com.cell.user.ifacade.request.authority.UpdateSysAuthorityReq;
+import com.cell.user.page.Page;
 import com.cell.user.page.PageResult;
 import com.cell.user.service.util.TransformUtil;
 import com.cell.user.vo.single.SysAuthorityVo;
+import com.google.common.base.Joiner;
 
 @Service("sysAuthorityInternalService")
 public class SysAuthorityInternalService {
@@ -59,7 +63,7 @@ public class SysAuthorityInternalService {
 		authority.setJobId(req.getJobId());
 		authority.setUserId(req.getUserId());
 		authority.setGroupId(req.getGroupId());
-		authority.setRoleIds(req.getRoleIds());
+		authority.setRoleIds(Joiner.on(",").join(req.getRoleIds()));
 		authority.setType(req.getType());
 		sysAuthorityMapper.insertSelective(authority);
 		logger.info("createSysAuthority  authority:{}",
@@ -95,7 +99,7 @@ public class SysAuthorityInternalService {
 	 * @param id
 	 * @return int
 	 */
-	public boolean deleteSysAuthorityById(long sysAuthorityId) {
+	public boolean deleteSysAuthorityById(Long sysAuthorityId) {
 
 		SysAuthorityExample example = new SysAuthorityExample();
 		SysAuthorityExample.Criteria criteria = example.createCriteria();
@@ -112,15 +116,75 @@ public class SysAuthorityInternalService {
 	 * @param record
 	 * @return int
 	 */
-	public PageResult<SysAuthorityVo> listSysAuthority() {
+	public PageResult<SysAuthorityVo> listSysAuthority(
+			ListSysAuthorityCondition condition, Page page) {
+
+		if (page != null && page.isNeedTotalRecord()) {
+			int totalRecord = countSysAuthority(condition);
+			page.setTotalRecord(totalRecord);
+			if (totalRecord == 0) {
+				PageResult<SysAuthorityVo> result = new PageResult<SysAuthorityVo>();
+				result.setResult(new ArrayList<SysAuthorityVo>());
+				result.setPage(page);
+				return result;
+			}
+		}
 
 		SysAuthorityExample example = new SysAuthorityExample();
 		SysAuthorityExample.Criteria criteria = example.createCriteria();
-		List<SysAuthority> list = sysAuthorityMapper.selectByExample(example);
 
+		if (!CollectionUtils.isEmpty(condition.organizationIds)) {
+			List<Long> values = new ArrayList<Long>(
+					condition.organizationIds.size());
+			for (Long organizationId : condition.organizationIds) {
+				values.add(organizationId);
+			}
+			criteria.andOrganizationIdIn(values);
+		}
+
+		if (!CollectionUtils.isEmpty(condition.jobIds)) {
+			List<Long> values = new ArrayList<Long>(condition.jobIds.size());
+			for (Long jobId : condition.jobIds) {
+				values.add(jobId);
+			}
+			criteria.andJobIdIn(values);
+		}
+
+		if (!CollectionUtils.isEmpty(condition.userIds)) {
+			List<Long> values = new ArrayList<Long>(condition.userIds.size());
+			for (Long userId : condition.userIds) {
+				values.add(userId);
+			}
+			criteria.andUserIdIn(values);
+		}
+
+		if (!CollectionUtils.isEmpty(condition.groupIds)) {
+			List<Long> values = new ArrayList<Long>(condition.groupIds.size());
+			for (Long groupId : condition.groupIds) {
+				values.add(groupId);
+			}
+			criteria.andGroupIdIn(values);
+		}
+
+		if (!CollectionUtils.isEmpty(condition.roleIds)) {
+			List<String> values = new ArrayList<String>(
+					condition.roleIds.size());
+			for (String roleId : condition.roleIds) {
+				values.add(roleId);
+			}
+			criteria.andRoleIdsIn(values);
+		}
+
+		if (page != null) {
+			example.setLimitStart(page.getStart());
+			example.setLimitEnd(page.getPageSize());
+		}
+
+		List<SysAuthority> authorities = sysAuthorityMapper.selectByExample(example);
+		
 		PageResult<SysAuthorityVo> result = new PageResult<SysAuthorityVo>();
-		result.setResult(null);
-		result.setPage(null);
+		result.setResult(TransformUtil.transformSysAuthorityForQuery(authorities));
+		result.setPage(page);
 		return result;
 	}
 
@@ -130,10 +194,52 @@ public class SysAuthorityInternalService {
 	 * @param record
 	 * @return int
 	 */
-	public int countSysAuthority(ListSysAuthorityCondition condition ) {
+	public int countSysAuthority(ListSysAuthorityCondition condition) {
 
 		SysAuthorityExample example = new SysAuthorityExample();
 		SysAuthorityExample.Criteria criteria = example.createCriteria();
+
+		if (!CollectionUtils.isEmpty(condition.organizationIds)) {
+			List<Long> values = new ArrayList<Long>(
+					condition.organizationIds.size());
+			for (Long organizationId : condition.organizationIds) {
+				values.add(organizationId);
+			}
+			criteria.andOrganizationIdIn(values);
+		}
+
+		if (!CollectionUtils.isEmpty(condition.jobIds)) {
+			List<Long> values = new ArrayList<Long>(condition.jobIds.size());
+			for (Long jobId : condition.jobIds) {
+				values.add(jobId);
+			}
+			criteria.andJobIdIn(values);
+		}
+
+		if (!CollectionUtils.isEmpty(condition.userIds)) {
+			List<Long> values = new ArrayList<Long>(condition.userIds.size());
+			for (Long userId : condition.userIds) {
+				values.add(userId);
+			}
+			criteria.andUserIdIn(values);
+		}
+
+		if (!CollectionUtils.isEmpty(condition.groupIds)) {
+			List<Long> values = new ArrayList<Long>(condition.groupIds.size());
+			for (Long groupId : condition.groupIds) {
+				values.add(groupId);
+			}
+			criteria.andGroupIdIn(values);
+		}
+
+		if (!CollectionUtils.isEmpty(condition.roleIds)) {
+			List<String> values = new ArrayList<String>(
+					condition.roleIds.size());
+			for (String roleId : condition.roleIds) {
+				values.add(roleId);
+			}
+			criteria.andRoleIdsIn(values);
+		}
 		return sysAuthorityMapper.countByExample(example);
 	}
 
