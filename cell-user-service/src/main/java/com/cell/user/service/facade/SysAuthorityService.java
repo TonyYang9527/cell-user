@@ -25,7 +25,7 @@ import com.cell.user.service.check.CheckSysAuthorityReqParaService;
 import com.cell.user.service.internal.SysAuthorityInternalService;
 import com.cell.user.vo.single.SysAuthorityVo;
 
-@Service
+@Service("sysAuthorityService")
 public class SysAuthorityService implements SysAuthorityFacade {
 
 	private Logger logger = LoggerFactory.getLogger(SysAuthorityService.class);
