@@ -10,5 +10,4 @@ public class ListSysAuthorityCondition implements Serializable {
 	public List<Long> jobIds;
 	public List<Long> userIds;
 	public List<Long> groupIds;
-	public List<String> roleIds;
 }

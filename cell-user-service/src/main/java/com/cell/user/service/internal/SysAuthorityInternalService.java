@@ -63,7 +63,8 @@ public class SysAuthorityInternalService {
 		authority.setJobId(req.getJobId());
 		authority.setUserId(req.getUserId());
 		authority.setGroupId(req.getGroupId());
-		authority.setRoleIds(Joiner.on(",").join(req.getRoleIds()));
+		String roleIds =Joiner.on(",").join(req.getRoleIds());
+		authority.setRoleIds(roleIds);
 		authority.setType(req.getType());
 		sysAuthorityMapper.insertSelective(authority);
 		logger.info("createSysAuthority  authority:{}",
@@ -166,14 +167,14 @@ public class SysAuthorityInternalService {
 			criteria.andGroupIdIn(values);
 		}
 
-		if (!CollectionUtils.isEmpty(condition.roleIds)) {
-			List<String> values = new ArrayList<String>(
-					condition.roleIds.size());
-			for (String roleId : condition.roleIds) {
-				values.add(roleId);
-			}
-			criteria.andRoleIdsIn(values);
-		}
+//		if (!CollectionUtils.isEmpty(condition.roleIds)) {
+//			List<Long> values = new ArrayList<Long>(
+//					condition.roleIds.size());
+//			for (Long roleId : condition.roleIds) {
+//				values.add(roleId);
+//			}
+//			criteria.andRoleIdsIn(values);
+//		}
 
 		if (page != null) {
 			example.setLimitStart(page.getStart());
@@ -232,14 +233,14 @@ public class SysAuthorityInternalService {
 			criteria.andGroupIdIn(values);
 		}
 
-		if (!CollectionUtils.isEmpty(condition.roleIds)) {
-			List<String> values = new ArrayList<String>(
-					condition.roleIds.size());
-			for (String roleId : condition.roleIds) {
-				values.add(roleId);
-			}
-			criteria.andRoleIdsIn(values);
-		}
+//		if (!CollectionUtils.isEmpty(condition.roleIds)) {
+//			List<String> values = new ArrayList<String>(
+//					condition.roleIds.size());
+//			for (String roleId : condition.roleIds) {
+//				values.add(roleId);
+//			}
+//			criteria.andRoleIdsIn(values);
+//		}
 		return sysAuthorityMapper.countByExample(example);
 	}
 

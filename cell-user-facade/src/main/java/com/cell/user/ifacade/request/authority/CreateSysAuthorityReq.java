@@ -1,6 +1,5 @@
 package com.cell.user.ifacade.request.authority;
 
-import java.util.List;
 import java.util.Set;
 
 import com.cell.user.ifacade.request.BaseRequest;
@@ -17,12 +16,10 @@ public class CreateSysAuthorityReq extends BaseRequest {
 
 	private Long groupId;
 
-	private  Set<Long> roleIds;
+	private Set<Long> roleIds;
 
 	private Boolean type;
 
-	
-	
 	public Long getOrganizationId() {
 		return organizationId;
 	}
@@ -70,6 +67,5 @@ public class CreateSysAuthorityReq extends BaseRequest {
 	public void setRoleIds(Set<Long> roleIds) {
 		this.roleIds = roleIds;
 	}
-
 
 }

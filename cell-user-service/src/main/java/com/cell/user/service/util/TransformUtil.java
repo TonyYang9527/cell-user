@@ -1,18 +1,16 @@
 package com.cell.user.service.util;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.util.CollectionUtils;
 
 import com.cell.user.dao.entiy.SysAuthority;
 import com.cell.user.ifacade.request.authority.UpdateSysAuthorityReq;
+import com.cell.user.utils.String2Set;
 import com.cell.user.vo.single.SysAuthorityVo;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 
 public class TransformUtil {
@@ -24,7 +22,8 @@ public class TransformUtil {
 		result.setGroupId(req.getGroupId());
 		result.setJobId(req.getJobId());
 		result.setOrganizationId(req.getOrganizationId());
-		result.setRoleIds(Joiner.on(",").join(req.getRoleIds()) );
+		String rolesIds = Joiner.on(",").join(req.getRoleIds());
+		result.setRoleIds(rolesIds);
 		result.setType(req.getType());
 		result.setUserId(req.getUserId());
 		return result;
@@ -56,9 +55,7 @@ public class TransformUtil {
 		result.setId(authority.getId());
 		result.setJobId(authority.getJobId());
 		result.setOrganizationId(authority.getOrganizationId());
-		
-		List<String> list= Splitter.on(",").trimResults().splitToList(authority.getRoleIds());
-		result.setRoleIds(null);
+		result.setRoleIds(String2Set.toSet(authority.getRoleIds()));
 		result.setType(authority.getType());
 		result.setUserId(authority.getUserId());
 		return result;

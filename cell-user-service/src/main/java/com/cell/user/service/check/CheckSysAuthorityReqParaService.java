@@ -22,7 +22,7 @@ public class CheckSysAuthorityReqParaService extends CheckReqParamsService {
 		if (req == null)
 			errorMsg.append("请求为空,");
 		try {
-			checkRoleIds(req.getRoleIds());
+		//	checkRoleIds(req.getRoleIds());
 		} catch (Exception e) {
 			errorMsg.append(e.getMessage() + ",");
 		}

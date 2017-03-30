@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
 import com.cell.user.constant.Constants;
 import com.cell.user.dao.entiy.SysAuthority;
 import com.cell.user.ifacade.facade.SysAuthorityFacade;
@@ -41,7 +40,6 @@ public class SysAuthorityService implements SysAuthorityFacade {
 
 		CreateSysAuthorityRsp rsp = checkReqParaService
 				.checkCreateActivityReq(req);
-
 		if (Constants.RESPONSE_SUCCESS_CODE.equals(rsp.getRetCode())) {
 			Long sysAuthorityId = authorityService.createSysAuthority(req);
 			if (sysAuthorityId > 0) {
@@ -113,8 +111,6 @@ public class SysAuthorityService implements SysAuthorityFacade {
 		ListSysAuthorityRsp rsp = new ListSysAuthorityRsp();
 		// 添加校验
 		if (req.getCondition() != null) {
-			logger.info("listSysAuthority Condition :  "
-					+ JSON.toJSONString(req.getCondition()));
 			PageResult<SysAuthorityVo> result = authorityService
 					.listSysAuthority(req.getCondition(), req.getPage());
 			rsp.setResult(result);
