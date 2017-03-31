@@ -22,7 +22,7 @@ import com.cell.user.ifacade.response.authority.ListSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.UpdateSysAuthorityRsp;
 import com.cell.user.page.PageResult;
 import com.cell.user.service.check.CheckSysAuthorityReqParaService;
-import com.cell.user.service.internal.SysAuthorityInternalService;
+import com.cell.user.service.internal.AuthorityService;
 import com.cell.user.vo.single.SysAuthorityVo;
 
 @Service("sysAuthorityService")
@@ -30,7 +30,7 @@ public class SysAuthorityService implements SysAuthorityFacade {
 
 	private Logger logger = LoggerFactory.getLogger(SysAuthorityService.class);
 	@Resource
-	protected SysAuthorityInternalService authorityService;
+	protected AuthorityService authorityService;
 
 	@Autowired
 	private CheckSysAuthorityReqParaService checkReqParaService;

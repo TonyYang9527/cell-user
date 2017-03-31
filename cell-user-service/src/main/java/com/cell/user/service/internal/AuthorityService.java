@@ -23,11 +23,10 @@ import com.cell.user.service.util.TransformUtil;
 import com.cell.user.vo.single.SysAuthorityVo;
 import com.google.common.base.Joiner;
 
-@Service("sysAuthorityInternalService")
-public class SysAuthorityInternalService {
+@Service("authorityService")
+public class AuthorityService {
 
-	private Logger logger = LoggerFactory
-			.getLogger(SysAuthorityInternalService.class);
+	private Logger logger = LoggerFactory.getLogger(AuthorityService.class);
 
 	@Resource
 	protected SysAuthorityMapper sysAuthorityMapper;
