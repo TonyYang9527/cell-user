@@ -1,6 +1,7 @@
 package com.cell.user.vo.single;
 
 import java.io.Serializable;
+import java.util.Set;
 
 public class SysRoleResourcePermissionVo implements Serializable {
 
@@ -12,7 +13,7 @@ public class SysRoleResourcePermissionVo implements Serializable {
 
 	private Long resourceId;
 
-	private String permissionIds;
+	private Set<Long> permissionIds;
 
 	public Long getId() {
 		return id;
@@ -38,12 +39,12 @@ public class SysRoleResourcePermissionVo implements Serializable {
 		this.resourceId = resourceId;
 	}
 
-	public String getPermissionIds() {
+	public Set<Long> getPermissionIds() {
 		return permissionIds;
 	}
 
-	public void setPermissionIds(String permissionIds) {
-		this.permissionIds = permissionIds == null ? null : permissionIds
-				.trim();
+	public void setPermissionIds(Set<Long> permissionIds) {
+		this.permissionIds = permissionIds;
 	}
+
 }
