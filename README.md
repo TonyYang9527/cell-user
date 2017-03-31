@@ -55,3 +55,6 @@ http://blog.csdn.net/zz_cl/article/details/52665536
 
 dubbo+springmvc整合实例 玩转分布式架构
 http://www.07net01.com/2016/04/1476064.html
+
+springMVC-shiro
+https://github.com/qzw1210/springMVC-shiro
