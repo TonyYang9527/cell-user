@@ -13,4 +13,29 @@ public class CreateRoleResourcePermissionReq extends BaseRequest {
 	private Long resourceId;
 
 	private Set<Long>  permissionIds;
+
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+
+	public Long getResourceId() {
+		return resourceId;
+	}
+
+	public void setResourceId(Long resourceId) {
+		this.resourceId = resourceId;
+	}
+
+	public Set<Long> getPermissionIds() {
+		return permissionIds;
+	}
+
+	public void setPermissionIds(Set<Long> permissionIds) {
+		this.permissionIds = permissionIds;
+	}
+	
 }

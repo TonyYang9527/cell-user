@@ -1,7 +1,5 @@
 package com.cell.user.ifacade.request.user;
 
-import java.util.Date;
-
 import com.cell.user.ifacade.request.BaseRequest;
 
 public class CreateSysUserReq extends BaseRequest {
@@ -23,8 +21,6 @@ public class CreateSysUserReq extends BaseRequest {
 	private Boolean deleted;
 
 	private Boolean admin;
-
-	private Date createdTime;
 
 	private String createdBy;
 
@@ -92,14 +88,6 @@ public class CreateSysUserReq extends BaseRequest {
 		this.admin = admin;
 	}
 
-	public Date getCreatedTime() {
-		return createdTime;
-	}
-
-	public void setCreatedTime(Date createdTime) {
-		this.createdTime = createdTime;
-	}
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -107,6 +95,5 @@ public class CreateSysUserReq extends BaseRequest {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-	
-	
+
 }

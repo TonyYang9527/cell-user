@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.cell.user.dao.entiy.SysRole;
 import com.cell.user.dao.mapper.SysRoleMapper;
+import com.cell.user.ifacade.request.role.CreateSysRoleReq;
 
 @Service("roleService")
 public class RoleService {
@@ -33,6 +34,25 @@ public class RoleService {
 			return role;
 		}
 		return null;
+	}
+
+	/**
+	 * 创建 SysRole.
+	 * 
+	 * @param req
+	 * @return id
+	 */
+	public Long createSysRole(CreateSysRoleReq req) {
+
+		SysRole role = new SysRole();
+		role.setName(req.getName());
+		role.setRole(req.getRole());
+		role.setDisplay(req.getDisplay());
+		role.setDescription(req.getDescription());
+		sysRoleMapper.insertSelective(role);
+		logger.info("createSysRole  role:{}", JSON.toJSONString(role));
+		// 后面加入缓存
+		return role.getId();
 	}
 
 }
