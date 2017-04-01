@@ -56,8 +56,7 @@ public class RoleService {
 		// 后面加入缓存
 		return role.getId();
 	}
-	
-	
+
 	/**
 	 * 更新 SysRole
 	 * 
@@ -76,10 +75,25 @@ public class RoleService {
 		SysRoleExample.Criteria c = example.createCriteria();
 		c.andIdEqualTo(req.getId());
 
-		logger.info("updateSysRole  role:{}",
-				JSON.toJSONString(role));
+		logger.info("updateSysRole  role:{}", JSON.toJSONString(role));
 		sysRoleMapper.updateByExampleSelective(role, example);
 
+		return true;
+	}
+
+	/**
+	 * 根据id 删除 SysRole.
+	 * 
+	 * @param id
+	 * @return boolean
+	 */
+	public boolean deleteSysRoleById(Long id) {
+
+		SysRoleExample example = new SysRoleExample();
+		SysRoleExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(id);
+		logger.info("deleteSysRoleById  id:{}", JSON.toJSONString(id));
+		sysRoleMapper.deleteByExample(example);
 		return true;
 	}
 

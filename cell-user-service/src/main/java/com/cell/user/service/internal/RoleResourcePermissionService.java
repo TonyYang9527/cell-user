@@ -85,4 +85,24 @@ public class RoleResourcePermissionService {
 
 		return true;
 	}
+	
+	
+
+	
+	/**
+	 * 根据id 删除 SysRoleResourcePermission.
+	 * 
+	 * @param id
+	 * @return boolean
+	 */
+	public boolean deleteSysRoleResourcePermissionById(Long id) {
+
+		SysRoleResourcePermissionExample example = new SysRoleResourcePermissionExample();
+		SysRoleResourcePermissionExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(id);
+		logger.info("deleteSysRoleResourcePermissionById  id:{}",
+				JSON.toJSONString(id));
+		sysRoleResourcePermissionMapper.deleteByExample(example);
+		return true;
+	}
 }

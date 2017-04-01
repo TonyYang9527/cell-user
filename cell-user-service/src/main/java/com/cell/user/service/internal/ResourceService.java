@@ -93,4 +93,21 @@ public class ResourceService {
 		return true;
 	}
 
+	
+	/**
+	 * 根据id 删除 SysResource.
+	 * 
+	 * @param sysPermissionId
+	 * @return boolean
+	 */
+	public boolean deleteSysResourceById(Long id) {
+
+		SysResourceExample example = new SysResourceExample();
+		SysResourceExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(id);
+		logger.info("deleteSysResourceById  sysAuthorityId:{}",
+				JSON.toJSONString(id));
+		sysResourceMapper.deleteByExample(example);
+		return true;
+	}
 }

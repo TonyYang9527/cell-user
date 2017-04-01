@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.cell.user.dao.entiy.SysRoleExample;
 import com.cell.user.dao.entiy.SysUser;
 import com.cell.user.dao.entiy.SysUserExample;
 import com.cell.user.dao.mapper.SysUserMapper;
@@ -65,8 +66,7 @@ public class UserService {
 		// 后面加入缓存
 		return user.getId();
 	}
-	
-	
+
 	/**
 	 * 更新 SysUser
 	 * 
@@ -92,11 +92,25 @@ public class UserService {
 		SysUserExample.Criteria c = example.createCriteria();
 		c.andIdEqualTo(req.getId());
 
-		logger.info("updateSysUser  user:{}",
-				JSON.toJSONString(user));
+		logger.info("updateSysUser  user:{}", JSON.toJSONString(user));
 		sysUserMapper.updateByExampleSelective(user, example);
 
 		return true;
 	}
 
+	/**
+	 * 根据id 删除 SysUser.
+	 * 
+	 * @param id
+	 * @return boolean
+	 */
+	public boolean deleteSysUserById(Long id) {
+
+		SysUserExample example = new SysUserExample();
+		SysUserExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(id);
+		logger.info("deleteSysUserById  id:{}", JSON.toJSONString(id));
+		sysUserMapper.deleteByExample(example);
+		return true;
+	}
 }
