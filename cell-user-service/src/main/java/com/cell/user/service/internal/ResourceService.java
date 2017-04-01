@@ -2,11 +2,15 @@ package com.cell.user.service.internal;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.cell.user.condition.ListSysPermissionCondition;
+import com.cell.user.condition.ListSysResourceCondition;
+import com.cell.user.dao.entiy.SysPermissionExample;
 import com.cell.user.dao.entiy.SysResource;
 import com.cell.user.dao.entiy.SysResourceExample;
 import com.cell.user.dao.mapper.SysResourceMapper;
@@ -109,5 +113,32 @@ public class ResourceService {
 				JSON.toJSONString(id));
 		sysResourceMapper.deleteByExample(example);
 		return true;
+	}
+	
+	
+	/**
+	 * 根据条件统计SysResource列表.
+	 * 
+	 * @param record
+	 * @return int
+	 */
+	public int countSysResource(ListSysResourceCondition condition) {
+
+		SysResourceExample example = new SysResourceExample();
+		SysResourceExample.Criteria criteria = example.createCriteria();
+
+		if (StringUtils.isNotBlank(condition.name)) {
+			criteria.andNameLike("%" + condition.name + "%");
+		}
+
+		if (StringUtils.isNotBlank(condition.identity)) {
+			criteria.andIdentityLike("%" + condition.identity + "%");
+		}
+		
+
+		if (StringUtils.isNotBlank(condition.url)) {
+			criteria.andUrlLike("%" + condition.url + "%");
+		}
+		return sysResourceMapper.countByExample(example);
 	}
 }

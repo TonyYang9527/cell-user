@@ -140,13 +140,6 @@ public class PermissionService {
 			criteria.andPermissionLike("%" + condition.permission + "%");
 		}
 
-		if (StringUtils.isNotBlank(condition.description)) {
-			criteria.andDescriptionLike("%" + condition.description + "%");
-		}
-		if (condition.display != null) {
-			criteria.andDisplayEqualTo(condition.display);
-		}
-
 		if (page != null) {
 			example.setLimitStart(page.getStart());
 			example.setLimitEnd(page.getPageSize());
@@ -178,13 +171,6 @@ public class PermissionService {
 
 		if (StringUtils.isNotBlank(condition.permission)) {
 			criteria.andPermissionLike("%" + condition.permission + "%");
-		}
-
-		if (StringUtils.isNotBlank(condition.description)) {
-			criteria.andDescriptionLike("%" + condition.description + "%");
-		}
-		if (condition.display != null) {
-			criteria.andDisplayEqualTo(condition.display);
 		}
 		return sysPermissionMapper.countByExample(example);
 	}

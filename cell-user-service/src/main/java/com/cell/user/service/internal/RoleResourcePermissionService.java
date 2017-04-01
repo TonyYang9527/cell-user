@@ -2,11 +2,15 @@ package com.cell.user.service.internal;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.cell.user.condition.ListRoleResourcePermissionCondition;
+import com.cell.user.condition.ListSysResourceCondition;
+import com.cell.user.dao.entiy.SysResourceExample;
 import com.cell.user.dao.entiy.SysRoleResourcePermission;
 import com.cell.user.dao.entiy.SysRoleResourcePermissionExample;
 import com.cell.user.dao.mapper.SysRoleResourcePermissionMapper;
@@ -104,5 +108,21 @@ public class RoleResourcePermissionService {
 				JSON.toJSONString(id));
 		sysRoleResourcePermissionMapper.deleteByExample(example);
 		return true;
+	}
+	
+	
+	/**
+	 * 根据条件统计SysResource列表.
+	 * 
+	 * @param condition
+	 * @return int
+	 */
+	public int countSysResource(ListRoleResourcePermissionCondition condition) {
+
+		SysRoleResourcePermissionExample example = new SysRoleResourcePermissionExample();
+		SysRoleResourcePermissionExample.Criteria criteria = example.createCriteria();
+
+
+		return sysRoleResourcePermissionMapper.countByExample(example);
 	}
 }
