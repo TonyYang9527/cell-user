@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.cell.user.dao.entiy.SysRoleResourcePermission;
+import com.cell.user.dao.entiy.SysRoleResourcePermissionExample;
 import com.cell.user.dao.mapper.SysRoleResourcePermissionMapper;
 import com.cell.user.ifacade.request.relation.CreateRoleResourcePermissionReq;
+import com.cell.user.ifacade.request.relation.UpdateRoleResourcePermissionReq;
 import com.google.common.base.Joiner;
 
 @Service("roleResourcePermissionService")
@@ -40,7 +42,7 @@ public class RoleResourcePermissionService {
 	}
 
 	/**
-	 * 创建 SysPermission.
+	 * 创建 SysRoleResourcePermission.
 	 * 
 	 * @param req
 	 * @return id
@@ -57,5 +59,30 @@ public class RoleResourcePermissionService {
 				JSON.toJSONString(relation));
 		// 后面加入缓存
 		return relation.getId();
+	}
+	
+	
+	/**
+	 * 更新 SysRoleResourcePermission
+	 * 
+	 * @param req
+	 * @return boolean
+	 */
+	public boolean updateSysRoleResourcePermission(UpdateRoleResourcePermissionReq req) {
+
+		SysRoleResourcePermission relation = new SysRoleResourcePermission();
+		relation.setRoleId(req.getRoleId());
+		relation.setResourceId(req.getResourceId());
+		relation.setPermissionIds(Joiner.on(",").join(req.getPermissionIds()));
+
+		SysRoleResourcePermissionExample example = new SysRoleResourcePermissionExample();
+		SysRoleResourcePermissionExample.Criteria c = example.createCriteria();
+		c.andIdEqualTo(req.getId());
+
+		logger.info("updateSysRoleResourcePermission  relation:{}",
+				JSON.toJSONString(relation));
+		sysRoleResourcePermissionMapper.updateByExampleSelective(relation, example);
+
+		return true;
 	}
 }

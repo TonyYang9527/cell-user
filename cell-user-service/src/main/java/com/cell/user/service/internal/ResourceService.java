@@ -8,17 +8,18 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.cell.user.dao.entiy.SysResource;
+import com.cell.user.dao.entiy.SysResourceExample;
 import com.cell.user.dao.mapper.SysResourceMapper;
 import com.cell.user.ifacade.request.resource.CreateSysResourceReq;
+import com.cell.user.ifacade.request.resource.UpdateSysResourceReq;
 
 @Service("resourceService")
 public class ResourceService {
 
 	private Logger logger = LoggerFactory.getLogger(ResourceService.class);
+
 	@Resource
 	protected SysResourceMapper sysResourceMapper;
-	
-	
 
 	/**
 	 * 根据主键获取SysResource.
@@ -27,7 +28,7 @@ public class ResourceService {
 	 *            the id
 	 * @return SysResource
 	 */
-	public  SysResource getSysResourceById(Long id) {
+	public SysResource getSysResourceById(Long id) {
 		SysResource resource = sysResourceMapper.selectByPrimaryKey(id);
 		logger.info("getSysResourceById  id:{},resource:{}",
 				JSON.toJSONString(id), JSON.toJSONString(resource));
@@ -37,7 +38,6 @@ public class ResourceService {
 		return null;
 	}
 
-	
 	/**
 	 * 创建 SysResource.
 	 * 
@@ -55,7 +55,7 @@ public class ResourceService {
 		resource.setWeight(req.getWeight());
 		resource.setIcon(req.getIcon());
 		resource.setDisplay(req.getDisplay());
-		
+
 		sysResourceMapper.insertSelective(resource);
 		logger.info("createSysResource  resource:{}",
 				JSON.toJSONString(resource));
@@ -63,5 +63,34 @@ public class ResourceService {
 		return resource.getId();
 	}
 
-	
+	/**
+	 * 更新 SysResource
+	 * 
+	 * @param req
+	 * @return boolean
+	 */
+	public boolean updateSysResource(UpdateSysResourceReq req) {
+
+		SysResource resource = new SysResource();
+
+		resource.setIdentity(req.getIdentity());
+		resource.setName(req.getName());
+		resource.setParentId(req.getParentId());
+		resource.setParentIds(req.getParentIds());
+		resource.setUrl(req.getUrl());
+		resource.setWeight(req.getWeight());
+		resource.setIcon(req.getIcon());
+		resource.setDisplay(req.getDisplay());
+
+		SysResourceExample example = new SysResourceExample();
+		SysResourceExample.Criteria c = example.createCriteria();
+		c.andIdEqualTo(req.getId());
+
+		logger.info("updateSysResource  resource:{}",
+				JSON.toJSONString(resource));
+		sysResourceMapper.updateByExampleSelective(resource, example);
+
+		return true;
+	}
+
 }

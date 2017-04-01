@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.cell.user.dao.entiy.SysRole;
+import com.cell.user.dao.entiy.SysRoleExample;
 import com.cell.user.dao.mapper.SysRoleMapper;
 import com.cell.user.ifacade.request.role.CreateSysRoleReq;
+import com.cell.user.ifacade.request.role.UpdateSysRoleReq;
 
 @Service("roleService")
 public class RoleService {
@@ -53,6 +55,32 @@ public class RoleService {
 		logger.info("createSysRole  role:{}", JSON.toJSONString(role));
 		// 后面加入缓存
 		return role.getId();
+	}
+	
+	
+	/**
+	 * 更新 SysRole
+	 * 
+	 * @param req
+	 * @return boolean
+	 */
+	public boolean updateSysRole(UpdateSysRoleReq req) {
+
+		SysRole role = new SysRole();
+		role.setName(req.getName());
+		role.setRole(req.getRole());
+		role.setDisplay(req.getDisplay());
+		role.setDescription(req.getDescription());
+
+		SysRoleExample example = new SysRoleExample();
+		SysRoleExample.Criteria c = example.createCriteria();
+		c.andIdEqualTo(req.getId());
+
+		logger.info("updateSysRole  role:{}",
+				JSON.toJSONString(role));
+		sysRoleMapper.updateByExampleSelective(role, example);
+
+		return true;
 	}
 
 }

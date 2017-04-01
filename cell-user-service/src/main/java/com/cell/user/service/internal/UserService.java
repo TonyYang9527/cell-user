@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.cell.user.dao.entiy.SysUser;
+import com.cell.user.dao.entiy.SysUserExample;
 import com.cell.user.dao.mapper.SysUserMapper;
 import com.cell.user.ifacade.request.user.CreateSysUserReq;
+import com.cell.user.ifacade.request.user.UpdateSysUserReq;
 
 @Service("userService")
 public class UserService {
@@ -62,6 +64,39 @@ public class UserService {
 		logger.info("createSysUser  user:{}", JSON.toJSONString(user));
 		// 后面加入缓存
 		return user.getId();
+	}
+	
+	
+	/**
+	 * 更新 SysUser
+	 * 
+	 * @param req
+	 * @return boolean
+	 */
+	public boolean updateSysUser(UpdateSysUserReq req) {
+
+		SysUser user = new SysUser();
+		user.setUsername(req.getUsername());
+		user.setStatus(req.getStatus());
+		user.setSalt(null);
+		user.setPassword(req.getPassword());
+		user.setMobile(req.getMobile());
+		user.setEmail(req.getEmail());
+		user.setDevice(req.getDevice());
+		user.setDeleted(req.getDeleted());
+		user.setCreatedTime(new Date());
+		user.setCreatedBy("admin");
+		user.setAdmin(req.getAdmin());
+
+		SysUserExample example = new SysUserExample();
+		SysUserExample.Criteria c = example.createCriteria();
+		c.andIdEqualTo(req.getId());
+
+		logger.info("updateSysUser  user:{}",
+				JSON.toJSONString(user));
+		sysUserMapper.updateByExampleSelective(user, example);
+
+		return true;
 	}
 
 }
