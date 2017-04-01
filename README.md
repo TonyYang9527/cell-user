@@ -58,3 +58,6 @@ http://www.07net01.com/2016/04/1476064.html
 
 springMVC-shiro
 https://github.com/qzw1210/springMVC-shiro
+
+shiro的使用2 灵活使用shiro的密码服务模块
+http://www.cnblogs.com/snidget/p/3817763.html
