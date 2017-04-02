@@ -7,6 +7,6 @@ public class ListSysUserCondition implements Serializable {
 
 	private static final long serialVersionUID = 6238623404255913275L;
 	public Set<Long> ids;
-	private String username;
-	private Boolean status;
+	public String username;
+	public Boolean status;
 }

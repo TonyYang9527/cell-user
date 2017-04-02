@@ -1,6 +1,5 @@
 package com.cell.user.ifacade.request.authority;
 
-import java.util.List;
 import java.util.Set;
 
 import com.cell.user.ifacade.request.BaseRequest;

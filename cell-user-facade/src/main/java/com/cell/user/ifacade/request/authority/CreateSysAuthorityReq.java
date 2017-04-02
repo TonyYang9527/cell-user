@@ -9,15 +9,10 @@ public class CreateSysAuthorityReq extends BaseRequest {
 	private static final long serialVersionUID = -1630850429091967997L;
 
 	private Long organizationId;
-
 	private Long jobId;
-
 	private Long userId;
-
 	private Long groupId;
-
 	private Set<Long> roleIds;
-
 	private Boolean type;
 
 	public Long getOrganizationId() {

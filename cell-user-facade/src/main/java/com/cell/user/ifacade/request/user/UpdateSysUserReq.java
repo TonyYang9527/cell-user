@@ -1,8 +1,10 @@
 package com.cell.user.ifacade.request.user;
 
 import java.util.Date;
+import java.util.List;
 
 import com.cell.user.ifacade.request.BaseRequest;
+import com.cell.user.ifacade.request.authority.UpdateSysAuthorityReq;
 
 public class UpdateSysUserReq extends BaseRequest {
 
@@ -32,6 +34,11 @@ public class UpdateSysUserReq extends BaseRequest {
 
 	private String createdBy;
 
+	  /*
+     *添加 授权
+     */
+    private List<UpdateSysAuthorityReq> sysAuthoritis;
+    
 	public Long getId() {
 		return id;
 	}
@@ -127,4 +134,13 @@ public class UpdateSysUserReq extends BaseRequest {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy == null ? null : createdBy.trim();
 	}
+
+	public List<UpdateSysAuthorityReq> getSysAuthoritis() {
+		return sysAuthoritis;
+	}
+
+	public void setSysAuthoritis(List<UpdateSysAuthorityReq> sysAuthoritis) {
+		this.sysAuthoritis = sysAuthoritis;
+	}
+	
 }

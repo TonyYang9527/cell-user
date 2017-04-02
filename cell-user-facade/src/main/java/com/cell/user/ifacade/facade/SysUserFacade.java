@@ -1,6 +1,7 @@
 package com.cell.user.ifacade.facade;
 
 import com.cell.user.ifacade.request.user.CreateSysUserReq;
+import com.cell.user.ifacade.request.user.DeleteSysUserReq;
 import com.cell.user.ifacade.request.user.GetSysUserReq;
 import com.cell.user.ifacade.request.user.ListSysUserReq;
 import com.cell.user.ifacade.request.user.UpdateSysUserReq;
@@ -34,7 +35,7 @@ public interface SysUserFacade {
 	 * @param Req
 	 * @return
 	 */
-	public DeleteSysUserRsp deleteSysUser(DeleteSysUserRsp req);
+	public DeleteSysUserRsp deleteSysUser(DeleteSysUserReq req);
 
 	/**
 	 * 查询用户列表

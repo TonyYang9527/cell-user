@@ -8,9 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.cell.user.condition.ListSysPermissionCondition;
 import com.cell.user.condition.ListSysResourceCondition;
-import com.cell.user.dao.entiy.SysPermissionExample;
 import com.cell.user.dao.entiy.SysResource;
 import com.cell.user.dao.entiy.SysResourceExample;
 import com.cell.user.dao.mapper.SysResourceMapper;

@@ -1,7 +1,9 @@
 package com.cell.user.ifacade.request.user;
 
-import com.cell.user.ifacade.request.BaseRequest;
+import java.util.List;
 
+import com.cell.user.ifacade.request.BaseRequest;
+import com.cell.user.ifacade.request.authority.CreateSysAuthorityReq;
 public class CreateSysUserReq extends BaseRequest {
 
 	private static final long serialVersionUID = 2827054258974072177L;
@@ -23,6 +25,20 @@ public class CreateSysUserReq extends BaseRequest {
 	private Boolean admin;
 
 	private String createdBy;
+
+	  /*
+     *添加 授权
+     */
+    private List<CreateSysAuthorityReq> sysAuthoritis;
+    
+    
+	public List<CreateSysAuthorityReq> getSysAuthoritis() {
+		return sysAuthoritis;
+	}
+
+	public void setSysAuthoritis(List<CreateSysAuthorityReq> sysAuthoritis) {
+		this.sysAuthoritis = sysAuthoritis;
+	}
 
 	public String getUsername() {
 		return username;

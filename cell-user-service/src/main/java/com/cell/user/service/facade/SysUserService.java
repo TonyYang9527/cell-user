@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.cell.user.dao.mapper.SysUserMapper;
 import com.cell.user.ifacade.facade.SysUserFacade;
 import com.cell.user.ifacade.request.user.CreateSysUserReq;
+import com.cell.user.ifacade.request.user.DeleteSysUserReq;
 import com.cell.user.ifacade.request.user.GetSysUserReq;
 import com.cell.user.ifacade.request.user.ListSysUserReq;
 import com.cell.user.ifacade.request.user.UpdateSysUserReq;
@@ -39,7 +40,7 @@ public class SysUserService implements SysUserFacade {
 	}
 
 	@Override
-	public DeleteSysUserRsp deleteSysUser(DeleteSysUserRsp req) {
+	public DeleteSysUserRsp deleteSysUser(DeleteSysUserReq req) {
 
 		return null;
 	}

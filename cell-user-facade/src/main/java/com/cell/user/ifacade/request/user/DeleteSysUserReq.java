@@ -1,13 +1,11 @@
-package com.cell.user.ifacade.request.authority;
+package com.cell.user.ifacade.request.user;
 
 import com.cell.user.ifacade.request.BaseRequest;
 
-public class DeleteSysAuthorityReq extends BaseRequest {
+public class DeleteSysUserReq extends BaseRequest {
 
-	private static final long serialVersionUID = -6592237480966349367L;
-
+	private static final long serialVersionUID = 4764367189836978944L;
 	protected Long id;
-	
 	protected String deletedBy;
 
 	public Long getId() {

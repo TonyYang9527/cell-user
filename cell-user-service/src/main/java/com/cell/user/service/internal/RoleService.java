@@ -2,11 +2,13 @@ package com.cell.user.service.internal;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.cell.user.condition.ListSysRoleCondition;
 import com.cell.user.dao.entiy.SysRole;
 import com.cell.user.dao.entiy.SysRoleExample;
 import com.cell.user.dao.mapper.SysRoleMapper;
@@ -97,4 +99,25 @@ public class RoleService {
 		return true;
 	}
 
+	/**
+	 * 根据条件统计SysRole列表.
+	 * 
+	 * @param record
+	 * @return int
+	 */
+	public int countSysRole(ListSysRoleCondition condition) {
+
+		SysRoleExample example = new SysRoleExample();
+		SysRoleExample.Criteria criteria = example.createCriteria();
+
+		if (StringUtils.isNotBlank(condition.name)) {
+			criteria.andNameLike("%" + condition.name + "%");
+		}
+
+		if (StringUtils.isNotBlank(condition.role)) {
+			criteria.andRoleLike("%" + condition.role + "%");
+		}
+
+		return sysRoleMapper.countByExample(example);
+	}
 }

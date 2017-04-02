@@ -1,16 +1,17 @@
 package com.cell.user.service.internal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.fastjson.JSON;
 import com.cell.user.condition.ListRoleResourcePermissionCondition;
-import com.cell.user.condition.ListSysResourceCondition;
-import com.cell.user.dao.entiy.SysResourceExample;
 import com.cell.user.dao.entiy.SysRoleResourcePermission;
 import com.cell.user.dao.entiy.SysRoleResourcePermissionExample;
 import com.cell.user.dao.mapper.SysRoleResourcePermissionMapper;
@@ -64,15 +65,15 @@ public class RoleResourcePermissionService {
 		// 后面加入缓存
 		return relation.getId();
 	}
-	
-	
+
 	/**
 	 * 更新 SysRoleResourcePermission
 	 * 
 	 * @param req
 	 * @return boolean
 	 */
-	public boolean updateSysRoleResourcePermission(UpdateRoleResourcePermissionReq req) {
+	public boolean updateSysRoleResourcePermission(
+			UpdateRoleResourcePermissionReq req) {
 
 		SysRoleResourcePermission relation = new SysRoleResourcePermission();
 		relation.setRoleId(req.getRoleId());
@@ -85,14 +86,12 @@ public class RoleResourcePermissionService {
 
 		logger.info("updateSysRoleResourcePermission  relation:{}",
 				JSON.toJSONString(relation));
-		sysRoleResourcePermissionMapper.updateByExampleSelective(relation, example);
+		sysRoleResourcePermissionMapper.updateByExampleSelective(relation,
+				example);
 
 		return true;
 	}
-	
-	
 
-	
 	/**
 	 * 根据id 删除 SysRoleResourcePermission.
 	 * 
@@ -102,15 +101,15 @@ public class RoleResourcePermissionService {
 	public boolean deleteSysRoleResourcePermissionById(Long id) {
 
 		SysRoleResourcePermissionExample example = new SysRoleResourcePermissionExample();
-		SysRoleResourcePermissionExample.Criteria criteria = example.createCriteria();
+		SysRoleResourcePermissionExample.Criteria criteria = example
+				.createCriteria();
 		criteria.andIdEqualTo(id);
 		logger.info("deleteSysRoleResourcePermissionById  id:{}",
 				JSON.toJSONString(id));
 		sysRoleResourcePermissionMapper.deleteByExample(example);
 		return true;
 	}
-	
-	
+
 	/**
 	 * 根据条件统计SysResource列表.
 	 * 
@@ -120,8 +119,29 @@ public class RoleResourcePermissionService {
 	public int countSysResource(ListRoleResourcePermissionCondition condition) {
 
 		SysRoleResourcePermissionExample example = new SysRoleResourcePermissionExample();
-		SysRoleResourcePermissionExample.Criteria criteria = example.createCriteria();
+		SysRoleResourcePermissionExample.Criteria criteria = example
+				.createCriteria();
 
+		if (condition.id != null) {
+			criteria.andIdEqualTo(condition.id);
+		}
+
+		if (condition.roleId != null) {
+			criteria.andRoleIdEqualTo(condition.roleId);
+		}
+
+		if (condition.resourceId != null) {
+			criteria.andResourceIdEqualTo(condition.resourceId);
+		}
+
+		if (CollectionUtils.isNotEmpty(condition.permissionIds)) {
+			List<String> values = new ArrayList<String>(
+					condition.permissionIds.size());
+			for (Long permissionId : condition.permissionIds) {
+				values.add(permissionId.toString());
+			}
+			criteria.andPermissionIdsIn(values);
+		}
 
 		return sysRoleResourcePermissionMapper.countByExample(example);
 	}
