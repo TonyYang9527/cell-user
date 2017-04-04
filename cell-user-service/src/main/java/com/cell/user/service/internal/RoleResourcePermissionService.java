@@ -17,6 +17,9 @@ import com.cell.user.dao.entiy.SysRoleResourcePermissionExample;
 import com.cell.user.dao.mapper.SysRoleResourcePermissionMapper;
 import com.cell.user.ifacade.request.relation.CreateRoleResourcePermissionReq;
 import com.cell.user.ifacade.request.relation.UpdateRoleResourcePermissionReq;
+import com.cell.user.page.Page;
+import com.cell.user.page.PageResult;
+import com.cell.user.vo.single.SysRoleResourcePermissionVo;
 import com.google.common.base.Joiner;
 
 @Service("roleResourcePermissionService")
@@ -110,13 +113,74 @@ public class RoleResourcePermissionService {
 		return true;
 	}
 
+	
+	
+	
+	
+	/**
+	 * 根据条件 查询 SysRoleResourcePermission列表.
+	 * 
+	 * @param record
+	 * @return PageResult
+	 */
+	public PageResult<SysRoleResourcePermissionVo> listSysRoleResourcePermission(ListRoleResourcePermissionCondition condition,
+			Page page) {
+
+		if (page != null && page.isNeedTotalRecord()) {
+			int totalRecord = countSysRoleResourcePermission(condition);
+			page.setTotalRecord(totalRecord);
+			if (totalRecord == 0) {
+				PageResult<SysRoleResourcePermissionVo> result = new PageResult<SysRoleResourcePermissionVo>();
+				result.setResult(new ArrayList<SysRoleResourcePermissionVo>());
+				result.setPage(page);
+				return result;
+			}
+		}
+
+		SysRoleResourcePermissionExample example = new SysRoleResourcePermissionExample();
+		SysRoleResourcePermissionExample.Criteria criteria = example
+				.createCriteria();
+
+		if (condition.id != null) {
+			criteria.andIdEqualTo(condition.id);
+		}
+
+		if (condition.roleId != null) {
+			criteria.andRoleIdEqualTo(condition.roleId);
+		}
+
+		if (condition.resourceId != null) {
+			criteria.andResourceIdEqualTo(condition.resourceId);
+		}
+
+		if (CollectionUtils.isNotEmpty(condition.permissionIds)) {
+			List<String> values = new ArrayList<String>(
+					condition.permissionIds.size());
+			for (Long permissionId : condition.permissionIds) {
+				values.add(permissionId.toString());
+			}
+			criteria.andPermissionIdsIn(values);
+		}
+
+		if (page != null) {
+			example.setLimitStart(page.getStart());
+			example.setLimitEnd(page.getPageSize());
+		}
+
+		List<SysRoleResourcePermission> roles = sysRoleResourcePermissionMapper.selectByExample(example);
+		PageResult<SysRoleResourcePermissionVo> result = new PageResult<SysRoleResourcePermissionVo>();
+		result.setResult(null);
+		result.setPage(page);
+		return result;
+	}
+
 	/**
 	 * 根据条件统计SysResource列表.
 	 * 
 	 * @param condition
 	 * @return int
 	 */
-	public int countSysResource(ListRoleResourcePermissionCondition condition) {
+	public int countSysRoleResourcePermission(ListRoleResourcePermissionCondition condition) {
 
 		SysRoleResourcePermissionExample example = new SysRoleResourcePermissionExample();
 		SysRoleResourcePermissionExample.Criteria criteria = example

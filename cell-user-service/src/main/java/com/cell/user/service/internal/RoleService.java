@@ -1,5 +1,8 @@
 package com.cell.user.service.internal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
@@ -14,6 +17,9 @@ import com.cell.user.dao.entiy.SysRoleExample;
 import com.cell.user.dao.mapper.SysRoleMapper;
 import com.cell.user.ifacade.request.role.CreateSysRoleReq;
 import com.cell.user.ifacade.request.role.UpdateSysRoleReq;
+import com.cell.user.page.Page;
+import com.cell.user.page.PageResult;
+import com.cell.user.vo.single.SysRoleVo;
 
 @Service("roleService")
 public class RoleService {
@@ -98,6 +104,53 @@ public class RoleService {
 		sysRoleMapper.deleteByExample(example);
 		return true;
 	}
+	
+	
+	
+	/**
+	 * 根据条件 查询 SysRole列表.
+	 * 
+	 * @param record
+	 * @return PageResult
+	 */
+	public PageResult<SysRoleVo> listSysRole(ListSysRoleCondition condition,
+			Page page) {
+
+		if (page != null && page.isNeedTotalRecord()) {
+			int totalRecord = countSysRole(condition);
+			page.setTotalRecord(totalRecord);
+			if (totalRecord == 0) {
+				PageResult<SysRoleVo> result = new PageResult<SysRoleVo>();
+				result.setResult(new ArrayList<SysRoleVo>());
+				result.setPage(page);
+				return result;
+			}
+		}
+
+		SysRoleExample example = new SysRoleExample();
+		SysRoleExample.Criteria criteria = example.createCriteria();
+
+		if (StringUtils.isNotBlank(condition.name)) {
+			criteria.andNameLike("%" + condition.name + "%");
+		}
+
+		if (StringUtils.isNotBlank(condition.role)) {
+			criteria.andRoleLike("%" + condition.role + "%");
+		}
+
+		if (page != null) {
+			example.setLimitStart(page.getStart());
+			example.setLimitEnd(page.getPageSize());
+		}
+
+		List<SysRole> roles = sysRoleMapper.selectByExample(example);
+		PageResult<SysRoleVo> result = new PageResult<SysRoleVo>();
+		result.setResult(null);
+		result.setPage(page);
+		return result;
+	}
+
+	
 
 	/**
 	 * 根据条件统计SysRole列表.

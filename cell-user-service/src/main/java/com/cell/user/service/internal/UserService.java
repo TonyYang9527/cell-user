@@ -19,6 +19,9 @@ import com.cell.user.dao.entiy.SysUserExample;
 import com.cell.user.dao.mapper.SysUserMapper;
 import com.cell.user.ifacade.request.user.CreateSysUserReq;
 import com.cell.user.ifacade.request.user.UpdateSysUserReq;
+import com.cell.user.page.Page;
+import com.cell.user.page.PageResult;
+import com.cell.user.vo.single.SysUserVo;
 
 @Service("userService")
 public class UserService {
@@ -116,6 +119,57 @@ public class UserService {
 		logger.info("deleteSysUserById  id:{}", JSON.toJSONString(id));
 		sysUserMapper.deleteByExample(example);
 		return true;
+	}
+
+	/**
+	 * 根据条件 查询 SysUser列表.
+	 * 
+	 * @param record
+	 * @return PageResult
+	 */
+	public PageResult<SysUserVo> listSysUser(ListSysUserCondition condition,
+			Page page) {
+
+		if (page != null && page.isNeedTotalRecord()) {
+			int totalRecord = countSysUser(condition);
+			page.setTotalRecord(totalRecord);
+			if (totalRecord == 0) {
+				PageResult<SysUserVo> result = new PageResult<SysUserVo>();
+				result.setResult(new ArrayList<SysUserVo>());
+				result.setPage(page);
+				return result;
+			}
+		}
+
+		SysUserExample example = new SysUserExample();
+		SysUserExample.Criteria criteria = example.createCriteria();
+
+		if (StringUtils.isNotBlank(condition.username)) {
+			criteria.andUsernameLike("%" + condition.username + "%");
+		}
+
+		if (condition.status != null) {
+			criteria.andStatusEqualTo(condition.status);
+		}
+
+		if (CollectionUtils.isNotEmpty(condition.ids)) {
+			List<Long> values = new ArrayList<Long>(condition.ids.size());
+			for (Long id : condition.ids) {
+				values.add(id);
+			}
+			criteria.andIdIn(values);
+		}
+
+		if (page != null) {
+			example.setLimitStart(page.getStart());
+			example.setLimitEnd(page.getPageSize());
+		}
+
+		List<SysUser> users = sysUserMapper.selectByExample(example);
+		PageResult<SysUserVo> result = new PageResult<SysUserVo>();
+		result.setResult(null);
+		result.setPage(page);
+		return result;
 	}
 
 	/**

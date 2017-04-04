@@ -1,5 +1,8 @@
 package com.cell.user.service.internal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
@@ -14,6 +17,9 @@ import com.cell.user.dao.entiy.SysResourceExample;
 import com.cell.user.dao.mapper.SysResourceMapper;
 import com.cell.user.ifacade.request.resource.CreateSysResourceReq;
 import com.cell.user.ifacade.request.resource.UpdateSysResourceReq;
+import com.cell.user.page.Page;
+import com.cell.user.page.PageResult;
+import com.cell.user.vo.single.SysResourceVo;
 
 @Service("resourceService")
 public class ResourceService {
@@ -113,6 +119,59 @@ public class ResourceService {
 		return true;
 	}
 	
+	
+	
+	
+	
+	/**
+	 * 根据条件 查询 SysResource列表.
+	 * 
+	 * @param record
+	 * @return PageResult
+	 */
+	public PageResult<SysResourceVo> listSysResource(ListSysResourceCondition condition,
+			Page page) {
+
+		if (page != null && page.isNeedTotalRecord()) {
+			int totalRecord = countSysResource(condition);
+			page.setTotalRecord(totalRecord);
+			if (totalRecord == 0) {
+				PageResult<SysResourceVo> result = new PageResult<SysResourceVo>();
+				result.setResult(new ArrayList<SysResourceVo>());
+				result.setPage(page);
+				return result;
+			}
+		}
+
+
+		SysResourceExample example = new SysResourceExample();
+		SysResourceExample.Criteria criteria = example.createCriteria();
+
+		if (StringUtils.isNotBlank(condition.name)) {
+			criteria.andNameLike("%" + condition.name + "%");
+		}
+
+		if (StringUtils.isNotBlank(condition.identity)) {
+			criteria.andIdentityLike("%" + condition.identity + "%");
+		}
+		
+
+		if (StringUtils.isNotBlank(condition.url)) {
+			criteria.andUrlLike("%" + condition.url + "%");
+		}
+
+		if (page != null) {
+			example.setLimitStart(page.getStart());
+			example.setLimitEnd(page.getPageSize());
+		}
+
+		List<SysResource> roles = sysResourceMapper.selectByExample(example);
+		PageResult<SysResourceVo> result = new PageResult<SysResourceVo>();
+		result.setResult(null);
+		result.setPage(page);
+		return result;
+	}
+
 	
 	/**
 	 * 根据条件统计SysResource列表.
