@@ -1,11 +1,12 @@
 package com.cell.user.ifacade.facade;
 
 import com.cell.user.ifacade.request.role.CreateSysRoleReq;
-import com.cell.user.ifacade.request.role.DeleteSysRoleRsp;
+import com.cell.user.ifacade.request.role.DeleteSysRoleReq;
 import com.cell.user.ifacade.request.role.GetSysRoleReq;
 import com.cell.user.ifacade.request.role.ListSysRoleReq;
 import com.cell.user.ifacade.request.role.UpdateSysRoleReq;
 import com.cell.user.ifacade.response.role.CreateSysRoleRsp;
+import com.cell.user.ifacade.response.role.DeleteSysRoleRsp;
 import com.cell.user.ifacade.response.role.GetSysRoleRsp;
 import com.cell.user.ifacade.response.role.ListSysRoleRsp;
 import com.cell.user.ifacade.response.role.UpdateSysRoleRsp;
@@ -33,7 +34,7 @@ public interface SysRoleFacade {
 	 * @param Req
 	 * @return
 	 */
-	public DeleteSysRoleRsp deleteSysRole(DeleteSysRoleRsp req);
+	public DeleteSysRoleRsp deleteSysRole(DeleteSysRoleReq req);
 
 	/**
 	 * 查询角色列表

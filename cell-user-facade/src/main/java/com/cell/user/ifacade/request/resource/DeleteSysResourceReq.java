@@ -1,10 +1,11 @@
-package com.cell.user.ifacade.request.role;
+package com.cell.user.ifacade.request.resource;
 
 import com.cell.user.ifacade.request.BaseRequest;
 
-public class DeleteSysRoleRsp extends BaseRequest {
+public class DeleteSysResourceReq extends BaseRequest {
 
-	private static final long serialVersionUID = -5128228668152026060L;
+	
+	private static final long serialVersionUID = -6127175016876273312L;
 
 	protected Long id;
 

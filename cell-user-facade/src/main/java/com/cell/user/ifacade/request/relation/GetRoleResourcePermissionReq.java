@@ -9,4 +9,13 @@ public class GetRoleResourcePermissionReq extends BaseRequest{
 	 */
 	private static final long serialVersionUID = -4378817971718454517L;
 
+	   protected Long id;
+
+	    public Long getId() {
+	        return id;
+	    }
+
+	    public void setId(Long id) {
+	        this.id = id;
+	    }
 }

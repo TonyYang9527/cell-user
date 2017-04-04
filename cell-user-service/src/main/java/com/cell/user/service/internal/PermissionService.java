@@ -116,7 +116,7 @@ public class PermissionService {
 	 * @param record
 	 * @return int
 	 */
-	public PageResult<SysPermissionVo> listSysAuthority(
+	public PageResult<SysPermissionVo> listSysPermission(
 			ListSysPermissionCondition condition, Page page) {
 
 		if (page != null && page.isNeedTotalRecord()) {

@@ -1,11 +1,12 @@
 package com.cell.user.ifacade.facade;
 
 import com.cell.user.ifacade.request.permission.CreateSysPermissionReq;
-import com.cell.user.ifacade.request.permission.DeleteSysPermissionRsp;
+import com.cell.user.ifacade.request.permission.DeleteSysPermissionReq;
 import com.cell.user.ifacade.request.permission.GetSysPermissionReq;
 import com.cell.user.ifacade.request.permission.ListSysPermissionReq;
 import com.cell.user.ifacade.request.permission.UpdateSysPermissionReq;
 import com.cell.user.ifacade.response.permission.CreateSysPermissionRsp;
+import com.cell.user.ifacade.response.permission.DeleteSysPermissionRsp;
 import com.cell.user.ifacade.response.permission.GetSysPermissionRsp;
 import com.cell.user.ifacade.response.permission.ListSysPermissionRsp;
 import com.cell.user.ifacade.response.permission.UpdateSysPermissionRsp;
@@ -34,7 +35,7 @@ public interface SysPermissionFacade {
 	 * @param Req
 	 * @return
 	 */
-	public DeleteSysPermissionRsp deleteSysPermission(DeleteSysPermissionRsp req);
+	public DeleteSysPermissionRsp deleteSysPermission(DeleteSysPermissionReq req);
 
 	/**
 	 * 查询权限列表

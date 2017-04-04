@@ -1,14 +1,19 @@
-package com.cell.user.ifacade.request.resource;
+package com.cell.user.ifacade.request.permission;
 
 import com.cell.user.ifacade.request.BaseRequest;
 
-public class DeleteSysResourceRsp extends BaseRequest {
+public class DeleteSysPermissionReq extends BaseRequest {
 
-	
-	private static final long serialVersionUID = -6127175016876273312L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2997709711847708702L;
 
 	protected Long id;
 
+	/*
+	 * 删除者
+	 */
 	protected String deletedBy;
 
 	public Long getId() {

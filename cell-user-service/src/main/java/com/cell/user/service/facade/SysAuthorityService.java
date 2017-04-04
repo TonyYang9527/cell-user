@@ -23,6 +23,7 @@ import com.cell.user.ifacade.response.authority.UpdateSysAuthorityRsp;
 import com.cell.user.page.PageResult;
 import com.cell.user.service.check.CheckSysAuthorityReqParaService;
 import com.cell.user.service.internal.AuthorityService;
+import com.cell.user.service.util.TransformUtil;
 import com.cell.user.vo.single.SysAuthorityVo;
 
 @Service("sysAuthorityService")
@@ -115,7 +116,7 @@ public class SysAuthorityService implements SysAuthorityFacade {
 					.listSysAuthority(req.getCondition(), req.getPage());
 			rsp.setResult(result);
 			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
-			rsp.setRetMsg("分页查询活动成功");
+			rsp.setRetMsg("分页查询用户权限成功");
 		} else {
 			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
 			rsp.setRetMsg("查询条件为空");
@@ -127,6 +128,20 @@ public class SysAuthorityService implements SysAuthorityFacade {
 	@Override
 	public GetSysAuthorityRsp getSysAuthority(GetSysAuthorityReq req) {
 		GetSysAuthorityRsp rsp = new GetSysAuthorityRsp();
+		// 添加校验
+		SysAuthority authority = authorityService.getSysAuthorityById(req
+				.getId());
+		if (authority == null) {
+			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
+			rsp.setRetMsg("获取用户权限失败");
+			return rsp;
+		} else {
+			rsp.setAuthority(TransformUtil
+					.transformSysAuthorityVoForQuery(authority));
+			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
+			rsp.setRetMsg("查询用户权限成功");
+		}
+		logger.info("getSysAuthority req:{},rsp:{}", req, rsp);
 		return rsp;
 	}
 
