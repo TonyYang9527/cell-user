@@ -19,6 +19,7 @@ import com.cell.user.ifacade.request.role.CreateSysRoleReq;
 import com.cell.user.ifacade.request.role.UpdateSysRoleReq;
 import com.cell.user.page.Page;
 import com.cell.user.page.PageResult;
+import com.cell.user.service.util.TransformUtil;
 import com.cell.user.vo.single.SysRoleVo;
 
 @Service("roleService")
@@ -145,7 +146,7 @@ public class RoleService {
 
 		List<SysRole> roles = sysRoleMapper.selectByExample(example);
 		PageResult<SysRoleVo> result = new PageResult<SysRoleVo>();
-		result.setResult(null);
+		result.setResult(TransformUtil.transformSysRoleForQuery(roles));
 		result.setPage(page);
 		return result;
 	}

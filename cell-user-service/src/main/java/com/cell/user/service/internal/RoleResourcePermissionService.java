@@ -19,6 +19,7 @@ import com.cell.user.ifacade.request.relation.CreateRoleResourcePermissionReq;
 import com.cell.user.ifacade.request.relation.UpdateRoleResourcePermissionReq;
 import com.cell.user.page.Page;
 import com.cell.user.page.PageResult;
+import com.cell.user.service.util.TransformUtil;
 import com.cell.user.vo.single.SysRoleResourcePermissionVo;
 import com.google.common.base.Joiner;
 
@@ -167,9 +168,9 @@ public class RoleResourcePermissionService {
 			example.setLimitEnd(page.getPageSize());
 		}
 
-		List<SysRoleResourcePermission> roles = sysRoleResourcePermissionMapper.selectByExample(example);
+		List<SysRoleResourcePermission> relations = sysRoleResourcePermissionMapper.selectByExample(example);
 		PageResult<SysRoleResourcePermissionVo> result = new PageResult<SysRoleResourcePermissionVo>();
-		result.setResult(null);
+		result.setResult(TransformUtil.transformSysRoleResourcePermissionForQuery(relations));
 		result.setPage(page);
 		return result;
 	}

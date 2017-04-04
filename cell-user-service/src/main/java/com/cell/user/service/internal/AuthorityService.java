@@ -62,7 +62,7 @@ public class AuthorityService {
 		authority.setJobId(req.getJobId());
 		authority.setUserId(req.getUserId());
 		authority.setGroupId(req.getGroupId());
-		String roleIds =Joiner.on(",").join(req.getRoleIds());
+		String roleIds = Joiner.on(",").join(req.getRoleIds());
 		authority.setRoleIds(roleIds);
 		authority.setType(req.getType());
 		sysAuthorityMapper.insertSelective(authority);
@@ -165,25 +165,18 @@ public class AuthorityService {
 			}
 			criteria.andGroupIdIn(values);
 		}
-
-//		if (!CollectionUtils.isEmpty(condition.roleIds)) {
-//			List<Long> values = new ArrayList<Long>(
-//					condition.roleIds.size());
-//			for (Long roleId : condition.roleIds) {
-//				values.add(roleId);
-//			}
-//			criteria.andRoleIdsIn(values);
-//		}
-
+		
 		if (page != null) {
 			example.setLimitStart(page.getStart());
 			example.setLimitEnd(page.getPageSize());
 		}
 
-		List<SysAuthority> authorities = sysAuthorityMapper.selectByExample(example);
-		
+		List<SysAuthority> authorities = sysAuthorityMapper
+				.selectByExample(example);
+
 		PageResult<SysAuthorityVo> result = new PageResult<SysAuthorityVo>();
-		result.setResult(TransformUtil.transformSysAuthorityForQuery(authorities));
+		result.setResult(TransformUtil
+				.transformSysAuthorityForQuery(authorities));
 		result.setPage(page);
 		return result;
 	}
@@ -231,15 +224,6 @@ public class AuthorityService {
 			}
 			criteria.andGroupIdIn(values);
 		}
-
-//		if (!CollectionUtils.isEmpty(condition.roleIds)) {
-//			List<String> values = new ArrayList<String>(
-//					condition.roleIds.size());
-//			for (String roleId : condition.roleIds) {
-//				values.add(roleId);
-//			}
-//			criteria.andRoleIdsIn(values);
-//		}
 		return sysAuthorityMapper.countByExample(example);
 	}
 

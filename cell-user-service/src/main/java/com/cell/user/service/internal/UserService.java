@@ -21,6 +21,7 @@ import com.cell.user.ifacade.request.user.CreateSysUserReq;
 import com.cell.user.ifacade.request.user.UpdateSysUserReq;
 import com.cell.user.page.Page;
 import com.cell.user.page.PageResult;
+import com.cell.user.service.util.TransformUtil;
 import com.cell.user.vo.single.SysUserVo;
 
 @Service("userService")
@@ -167,7 +168,7 @@ public class UserService {
 
 		List<SysUser> users = sysUserMapper.selectByExample(example);
 		PageResult<SysUserVo> result = new PageResult<SysUserVo>();
-		result.setResult(null);
+		result.setResult(TransformUtil.transformSysUserForQuery(users));
 		result.setPage(page);
 		return result;
 	}

@@ -19,6 +19,7 @@ import com.cell.user.ifacade.request.resource.CreateSysResourceReq;
 import com.cell.user.ifacade.request.resource.UpdateSysResourceReq;
 import com.cell.user.page.Page;
 import com.cell.user.page.PageResult;
+import com.cell.user.service.util.TransformUtil;
 import com.cell.user.vo.single.SysResourceVo;
 
 @Service("resourceService")
@@ -165,9 +166,9 @@ public class ResourceService {
 			example.setLimitEnd(page.getPageSize());
 		}
 
-		List<SysResource> roles = sysResourceMapper.selectByExample(example);
+		List<SysResource> resouces = sysResourceMapper.selectByExample(example);
 		PageResult<SysResourceVo> result = new PageResult<SysResourceVo>();
-		result.setResult(null);
+		result.setResult(TransformUtil.transformSysResourceForQuery(resouces));
 		result.setPage(page);
 		return result;
 	}

@@ -19,6 +19,7 @@ import com.cell.user.ifacade.request.permission.CreateSysPermissionReq;
 import com.cell.user.ifacade.request.permission.UpdateSysPermissionReq;
 import com.cell.user.page.Page;
 import com.cell.user.page.PageResult;
+import com.cell.user.service.util.TransformUtil;
 import com.cell.user.vo.single.SysPermissionVo;
 
 @Service("permissionService")
@@ -149,7 +150,8 @@ public class PermissionService {
 				.selectByExample(example);
 		permissions.size();
 		PageResult<SysPermissionVo> result = new PageResult<SysPermissionVo>();
-		result.setResult(null);
+		result.setResult(TransformUtil
+				.transformSysPermissionForQuery(permissions));
 		result.setPage(page);
 		return result;
 	}
