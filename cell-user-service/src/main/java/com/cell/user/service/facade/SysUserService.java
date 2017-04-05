@@ -2,6 +2,7 @@ package com.cell.user.service.facade;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -120,7 +121,15 @@ public class SysUserService implements SysUserFacade {
 
 		GetSysUserRsp rsp = new GetSysUserRsp();
 		// 添加校验
-		SysUser vo = userService.getSysUserById(req.getId());
+		SysUser vo = null;
+		if (req.getId() != null) {
+			vo = userService.getSysUserById(req.getId());
+		}else if (StringUtils.isNotEmpty(req.getUsername())){
+			vo =userService.getSysUserByUsername(req.getUsername());
+		}else{
+			vo =null;
+		}
+		
 		if (vo == null) {
 			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
 			rsp.setRetMsg("获取用户角色失败");

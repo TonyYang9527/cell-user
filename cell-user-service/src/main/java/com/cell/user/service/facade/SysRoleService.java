@@ -1,21 +1,28 @@
 package com.cell.user.service.facade;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.cell.user.constant.Constants;
+import com.cell.user.dao.entiy.SysAuthority;
 import com.cell.user.dao.entiy.SysRole;
 import com.cell.user.ifacade.facade.SysRoleFacade;
 import com.cell.user.ifacade.request.role.CreateSysRoleReq;
 import com.cell.user.ifacade.request.role.DeleteSysRoleReq;
+import com.cell.user.ifacade.request.role.FindSysRoleReq;
 import com.cell.user.ifacade.request.role.GetSysRoleReq;
 import com.cell.user.ifacade.request.role.ListSysRoleReq;
 import com.cell.user.ifacade.request.role.UpdateSysRoleReq;
+import com.cell.user.ifacade.response.authority.FindSysAuthorityRsp;
 import com.cell.user.ifacade.response.role.CreateSysRoleRsp;
 import com.cell.user.ifacade.response.role.DeleteSysRoleRsp;
+import com.cell.user.ifacade.response.role.FindSysRoleRsp;
 import com.cell.user.ifacade.response.role.GetSysRoleRsp;
 import com.cell.user.ifacade.response.role.ListSysRoleRsp;
 import com.cell.user.ifacade.response.role.UpdateSysRoleRsp;
@@ -120,19 +127,35 @@ public class SysRoleService implements SysRoleFacade {
 	public GetSysRoleRsp getSysRole(GetSysRoleReq req) {
 		GetSysRoleRsp rsp = new GetSysRoleRsp();
 		// 添加校验
-		SysRole vo = roleService.getSysRoleById(req
-				.getId());
+		SysRole vo = roleService.getSysRoleById(req.getId());
 		if (vo == null) {
 			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
 			rsp.setRetMsg("获取用户角色失败");
 			return rsp;
 		} else {
-			rsp.setRole(TransformUtil
-					.transformSysRoleVoForQuery(vo));
+			rsp.setRole(TransformUtil.transformSysRoleVoForQuery(vo));
 			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
 			rsp.setRetMsg("查询用户角色成功");
 		}
 		logger.info("getSysRole req:{},rsp:{}", req, rsp);
+		return rsp;
+	}
+
+	@Override
+	public FindSysRoleRsp findSysRoleByIds(FindSysRoleReq req) {
+		FindSysRoleRsp rsp = new FindSysRoleRsp();
+		// 添加校验
+		List<SysRole> roles = roleService.findSysRoleByIds(req.getIds());
+		if (CollectionUtils.isEmpty(roles)) {
+			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
+			rsp.setRetMsg("获取用户角色失败");
+			return rsp;
+		} else {
+			rsp.setRoles(TransformUtil.transformSysRoleForQuery(roles));
+			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
+			rsp.setRetMsg("查询用户角色成功");
+		}
+		logger.info("findSysRoleByIds req:{},rsp:{}", req, rsp);
 		return rsp;
 	}
 

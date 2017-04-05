@@ -50,6 +50,30 @@ public class UserService {
 	}
 
 	/**
+	 * 根据username获取SysUser.
+	 *
+	 * @param username
+	 * @return SysUser
+	 */
+	public SysUser getSysUserByUsername(String username) {
+
+		SysUserExample example = new SysUserExample();
+		SysUserExample.Criteria c = example.createCriteria();
+		
+		if (StringUtils.isNotEmpty(username)) {
+			c.andUsernameEqualTo(username);
+		}
+		
+		List<SysUser> users = sysUserMapper.selectByExample(example);
+		
+		logger.info("getSysUserByUsername  username:{},users:{}", JSON.toJSONString(username), JSON.toJSONString(users));
+		if (CollectionUtils.isNotEmpty(users)&&users.size()==1) {
+			return users.get(0);
+		}
+		return null;
+	}
+
+	/**
 	 * 创建 SysUser.
 	 * 
 	 * @param req

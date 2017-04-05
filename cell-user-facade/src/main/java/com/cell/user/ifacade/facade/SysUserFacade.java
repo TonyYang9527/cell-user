@@ -52,5 +52,6 @@ public interface SysUserFacade {
 	 * @return
 	 */
 	public GetSysUserRsp getSysUser(GetSysUserReq req);
+	
 
 }

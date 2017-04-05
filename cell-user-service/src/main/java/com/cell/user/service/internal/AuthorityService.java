@@ -165,7 +165,7 @@ public class AuthorityService {
 			}
 			criteria.andGroupIdIn(values);
 		}
-		
+
 		if (page != null) {
 			example.setLimitStart(page.getStart());
 			example.setLimitEnd(page.getPageSize());
@@ -227,8 +227,31 @@ public class AuthorityService {
 		return sysAuthorityMapper.countByExample(example);
 	}
 
-	public boolean checkSysAuthorityState(List<Byte> inStates) {
-		return false;
+	/**
+	 * 根据主键获取SysAuthority.
+	 *
+	 * @param id
+	 *            the id
+	 * @return SysAuthority
+	 */
+	public List<SysAuthority> findSysAuthorityByUserId(Long userId) {
+
+		SysAuthorityExample example = new SysAuthorityExample();
+		SysAuthorityExample.Criteria criteria = example.createCriteria();
+
+		if (userId != null) {
+			criteria.andUserIdEqualTo(userId);
+		}
+
+		List<SysAuthority> authorities = sysAuthorityMapper
+				.selectByExample(example);
+
+		logger.info("findSysAuthorityByUserId  userId:{},authorities:{}",
+				JSON.toJSONString(userId), JSON.toJSONString(authorities));
+		if (!CollectionUtils.isEmpty(authorities)) {
+			return authorities;
+		}
+		return null;
 	}
 
 }

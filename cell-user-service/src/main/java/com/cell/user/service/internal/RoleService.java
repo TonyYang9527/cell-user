@@ -2,6 +2,7 @@ package com.cell.user.service.internal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -9,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.cell.user.condition.ListSysRoleCondition;
@@ -105,9 +107,7 @@ public class RoleService {
 		sysRoleMapper.deleteByExample(example);
 		return true;
 	}
-	
-	
-	
+
 	/**
 	 * 根据条件 查询 SysRole列表.
 	 * 
@@ -151,8 +151,6 @@ public class RoleService {
 		return result;
 	}
 
-	
-
 	/**
 	 * 根据条件统计SysRole列表.
 	 * 
@@ -174,4 +172,32 @@ public class RoleService {
 
 		return sysRoleMapper.countByExample(example);
 	}
+
+	/**
+	 * 根据主键获取 List<SysRole>.
+	 *
+	 * @param id
+	 *            the id
+	 * @return SysRole
+	 */
+	public List<SysRole> findSysRoleByIds(Set<Long> ids) {
+		SysRoleExample example = new SysRoleExample();
+		SysRoleExample.Criteria criteria = example.createCriteria();
+
+		if (!CollectionUtils.isEmpty(ids)) {
+			List<Long> values = new ArrayList<Long>(ids.size());
+			for (Long id : ids) {
+				values.add(id);
+			}
+			criteria.andIdIn(values);
+		}
+		List<SysRole> roles = sysRoleMapper.selectByExample(example);
+		logger.info("getSysRoleById  ids:{},role:{}", JSON.toJSONString(ids),
+				JSON.toJSONString(roles));
+		if (!CollectionUtils.isEmpty(roles)) {
+			return roles;
+		}
+		return null;
+	}
+
 }

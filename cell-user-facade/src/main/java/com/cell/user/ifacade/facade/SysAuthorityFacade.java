@@ -5,8 +5,10 @@ import com.cell.user.ifacade.request.authority.DeleteSysAuthorityReq;
 import com.cell.user.ifacade.request.authority.GetSysAuthorityReq;
 import com.cell.user.ifacade.request.authority.ListSysAuthorityReq;
 import com.cell.user.ifacade.request.authority.UpdateSysAuthorityReq;
+import com.cell.user.ifacade.request.authority.FindSysAuthorityReq;
 import com.cell.user.ifacade.response.authority.CreateSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.DeleteSysAuthorityRsp;
+import com.cell.user.ifacade.response.authority.FindSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.GetSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.ListSysAuthorityRsp;
 import com.cell.user.ifacade.response.authority.UpdateSysAuthorityRsp;
@@ -54,5 +56,14 @@ public interface SysAuthorityFacade {
      * @return
      */
     public GetSysAuthorityRsp getSysAuthority(GetSysAuthorityReq req);
+    
+    
+    /**
+     * 查询用户授权列表
+     * 
+     * @param Req
+     * @return
+     */
+    public FindSysAuthorityRsp findSysAuthorityByUserId(FindSysAuthorityReq req);
     
 }
