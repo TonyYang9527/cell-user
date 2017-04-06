@@ -61,3 +61,5 @@ https://github.com/qzw1210/springMVC-shiro
 
 shiro的使用2 灵活使用shiro的密码服务模块
 http://www.cnblogs.com/snidget/p/3817763.html
+http://www.ituring.com.cn/article/287
+http://www.ituring.com.cn/article/163
