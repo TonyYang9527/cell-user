@@ -63,3 +63,7 @@ shiro的使用2 灵活使用shiro的密码服务模块
 http://www.cnblogs.com/snidget/p/3817763.html
 http://www.ituring.com.cn/article/287
 http://www.ituring.com.cn/article/163
+
+Spring Cloud构建微服务架构
+https://git.oschina.net/didispace/SpringBoot-Learning
+http://blog.csdn.net/k21325/article/details/52789829
