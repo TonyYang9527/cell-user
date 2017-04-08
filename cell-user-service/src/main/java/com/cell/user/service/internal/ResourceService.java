@@ -2,6 +2,7 @@ package com.cell.user.service.internal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -9,11 +10,14 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.cell.user.condition.ListSysResourceCondition;
 import com.cell.user.dao.entiy.SysResource;
 import com.cell.user.dao.entiy.SysResourceExample;
+import com.cell.user.dao.entiy.SysRole;
+import com.cell.user.dao.entiy.SysRoleExample;
 import com.cell.user.dao.mapper.SysResourceMapper;
 import com.cell.user.ifacade.request.resource.CreateSysResourceReq;
 import com.cell.user.ifacade.request.resource.UpdateSysResourceReq;
@@ -102,7 +106,6 @@ public class ResourceService {
 		return true;
 	}
 
-	
 	/**
 	 * 根据id 删除 SysResource.
 	 * 
@@ -119,19 +122,15 @@ public class ResourceService {
 		sysResourceMapper.deleteByExample(example);
 		return true;
 	}
-	
-	
-	
-	
-	
+
 	/**
 	 * 根据条件 查询 SysResource列表.
 	 * 
 	 * @param record
 	 * @return PageResult
 	 */
-	public PageResult<SysResourceVo> listSysResource(ListSysResourceCondition condition,
-			Page page) {
+	public PageResult<SysResourceVo> listSysResource(
+			ListSysResourceCondition condition, Page page) {
 
 		if (page != null && page.isNeedTotalRecord()) {
 			int totalRecord = countSysResource(condition);
@@ -144,7 +143,6 @@ public class ResourceService {
 			}
 		}
 
-
 		SysResourceExample example = new SysResourceExample();
 		SysResourceExample.Criteria criteria = example.createCriteria();
 
@@ -155,7 +153,6 @@ public class ResourceService {
 		if (StringUtils.isNotBlank(condition.identity)) {
 			criteria.andIdentityLike("%" + condition.identity + "%");
 		}
-		
 
 		if (StringUtils.isNotBlank(condition.url)) {
 			criteria.andUrlLike("%" + condition.url + "%");
@@ -173,7 +170,6 @@ public class ResourceService {
 		return result;
 	}
 
-	
 	/**
 	 * 根据条件统计SysResource列表.
 	 * 
@@ -192,11 +188,57 @@ public class ResourceService {
 		if (StringUtils.isNotBlank(condition.identity)) {
 			criteria.andIdentityLike("%" + condition.identity + "%");
 		}
-		
 
 		if (StringUtils.isNotBlank(condition.url)) {
 			criteria.andUrlLike("%" + condition.url + "%");
 		}
 		return sysResourceMapper.countByExample(example);
 	}
+
+	/**
+	 * 根据主键获取 List<SysRole>.
+	 *
+	 * @param id
+	 *            the id
+	 * @return SysRole
+	 */
+	public List<SysResource> findSysResources(Set<Long> ids, Set<Long> parentIds) {
+
+		if (CollectionUtils.isEmpty(ids) && CollectionUtils.isEmpty(parentIds)) {
+			return new ArrayList<SysResource>();
+		}
+
+		SysResourceExample example = new SysResourceExample();
+		SysResourceExample.Criteria criteria = example.createCriteria();
+		if (!CollectionUtils.isEmpty(ids)) {
+			List<Long> values = new ArrayList<Long>(ids.size());
+			for (Long id : ids) {
+				values.add(id);
+			}
+			criteria.andIdIn(values);
+		}
+
+		if (!CollectionUtils.isEmpty(parentIds)) {
+			List<Long> values = new ArrayList<Long>(parentIds.size());
+			for (Long parentId : parentIds) {
+				values.add(parentId);
+			}
+
+			criteria.andParentIdIn(values);
+		}
+
+		List<SysResource> resources = sysResourceMapper
+				.selectByExample(example);
+		logger.info("findSysRoles  ids:{},  parentIds:{},resources:{}",
+				JSON.toJSONString(ids), JSON.toJSONString(parentIds),
+				JSON.toJSONString(resources));
+
+		if (!CollectionUtils.isEmpty(resources)) {
+			return resources;
+		} else {
+			resources = new ArrayList<SysResource>();
+		}
+		return resources;
+	}
+
 }

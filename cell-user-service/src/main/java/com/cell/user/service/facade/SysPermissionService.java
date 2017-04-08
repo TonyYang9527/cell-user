@@ -1,24 +1,31 @@
 package com.cell.user.service.facade;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.cell.user.constant.Constants;
 import com.cell.user.dao.entiy.SysPermission;
+import com.cell.user.dao.entiy.SysRole;
 import com.cell.user.ifacade.facade.SysPermissionFacade;
 import com.cell.user.ifacade.request.permission.CreateSysPermissionReq;
 import com.cell.user.ifacade.request.permission.DeleteSysPermissionReq;
+import com.cell.user.ifacade.request.permission.FindSysPermissionReq;
 import com.cell.user.ifacade.request.permission.GetSysPermissionReq;
 import com.cell.user.ifacade.request.permission.ListSysPermissionReq;
 import com.cell.user.ifacade.request.permission.UpdateSysPermissionReq;
 import com.cell.user.ifacade.response.permission.CreateSysPermissionRsp;
 import com.cell.user.ifacade.response.permission.DeleteSysPermissionRsp;
+import com.cell.user.ifacade.response.permission.FindSysPermissionRsp;
 import com.cell.user.ifacade.response.permission.GetSysPermissionRsp;
 import com.cell.user.ifacade.response.permission.ListSysPermissionRsp;
 import com.cell.user.ifacade.response.permission.UpdateSysPermissionRsp;
+import com.cell.user.ifacade.response.role.FindSysRoleRsp;
 import com.cell.user.page.PageResult;
 import com.cell.user.service.internal.PermissionService;
 import com.cell.user.service.util.TransformUtil;
@@ -132,6 +139,26 @@ public class SysPermissionService implements SysPermissionFacade {
 			rsp.setRetMsg("获取权限成功");
 		}
 		logger.info("getSysPermission req:{},rsp:{}", req, rsp);
+		return rsp;
+	}
+
+	@Override
+	public FindSysPermissionRsp findStringPermissions(FindSysPermissionReq req) {
+		FindSysPermissionRsp rsp = new FindSysPermissionRsp();
+		// 添加校验
+		List<SysPermission> permissions = permissionService
+				.findSysPermissionByIds(req.getIds());
+		if (CollectionUtils.isEmpty(permissions)) {
+			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
+			rsp.setRetMsg("获取权限失败");
+			return rsp;
+		} else {
+			rsp.setPermissions(TransformUtil
+					.transformSysPermissionForQuery(permissions));
+			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
+			rsp.setRetMsg("查询权限成功");
+		}
+		logger.info("findStringPermissions req:{},rsp:{}", req, rsp);
 		return rsp;
 	}
 

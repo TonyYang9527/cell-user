@@ -2,11 +2,13 @@ package com.cell.user.ifacade.facade;
 
 import com.cell.user.ifacade.request.relation.CreateRoleResourcePermissionReq;
 import com.cell.user.ifacade.request.relation.DeleteRoleResourcePermissionReq;
+import com.cell.user.ifacade.request.relation.FindRoleResourcePermissionReq;
 import com.cell.user.ifacade.request.relation.GetRoleResourcePermissionReq;
 import com.cell.user.ifacade.request.relation.ListRoleResourcePermissionReq;
 import com.cell.user.ifacade.request.relation.UpdateRoleResourcePermissionReq;
 import com.cell.user.ifacade.response.relation.CreateRoleResourcePermissionRsp;
 import com.cell.user.ifacade.response.relation.DeleteRoleResourcePermissionRsp;
+import com.cell.user.ifacade.response.relation.FindRoleResourcePermissionRsp;
 import com.cell.user.ifacade.response.relation.GetRoleResourcePermissionRsp;
 import com.cell.user.ifacade.response.relation.ListRoleResourcePermissionRsp;
 import com.cell.user.ifacade.response.relation.UpdateRoleResourcePermissionRsp;
@@ -55,5 +57,14 @@ public interface SysRoleResourcePermissionFacade {
      * @return
      */
     public GetRoleResourcePermissionRsp getRoleResourcePermission(GetRoleResourcePermissionReq req);
+    
+    
+    /**
+     *查询角色列表
+     * 
+     * @param Req
+     * @return
+     */
+    public FindRoleResourcePermissionRsp findRoleResourcePermissionByRoleIds(FindRoleResourcePermissionReq req);
     
 }

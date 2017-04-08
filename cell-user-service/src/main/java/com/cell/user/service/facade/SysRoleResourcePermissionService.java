@@ -1,21 +1,26 @@
 package com.cell.user.service.facade;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.cell.user.constant.Constants;
 import com.cell.user.dao.entiy.SysRoleResourcePermission;
 import com.cell.user.ifacade.facade.SysRoleResourcePermissionFacade;
 import com.cell.user.ifacade.request.relation.CreateRoleResourcePermissionReq;
 import com.cell.user.ifacade.request.relation.DeleteRoleResourcePermissionReq;
+import com.cell.user.ifacade.request.relation.FindRoleResourcePermissionReq;
 import com.cell.user.ifacade.request.relation.GetRoleResourcePermissionReq;
 import com.cell.user.ifacade.request.relation.ListRoleResourcePermissionReq;
 import com.cell.user.ifacade.request.relation.UpdateRoleResourcePermissionReq;
 import com.cell.user.ifacade.response.relation.CreateRoleResourcePermissionRsp;
 import com.cell.user.ifacade.response.relation.DeleteRoleResourcePermissionRsp;
+import com.cell.user.ifacade.response.relation.FindRoleResourcePermissionRsp;
 import com.cell.user.ifacade.response.relation.GetRoleResourcePermissionRsp;
 import com.cell.user.ifacade.response.relation.ListRoleResourcePermissionRsp;
 import com.cell.user.ifacade.response.relation.UpdateRoleResourcePermissionRsp;
@@ -145,6 +150,28 @@ public class SysRoleResourcePermissionService implements
 			rsp.setRetMsg("查询用户权限成功");
 		}
 		logger.info("getRoleResourcePermission req:{},rsp:{}", req, rsp);
+		return rsp;
+	}
+
+	@Override
+	public FindRoleResourcePermissionRsp findRoleResourcePermissionByRoleIds(
+			FindRoleResourcePermissionReq req) {
+		FindRoleResourcePermissionRsp rsp = new FindRoleResourcePermissionRsp();
+		// 添加校验
+		List<SysRoleResourcePermission> relations = relationService
+				.getSysRoleResourcePermissionByRoleIds(req.getRoleIds());
+		if (CollectionUtils.isEmpty(relations)) {
+			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
+			rsp.setRetMsg("获取用户权限失败");
+			return rsp;
+		} else {
+			rsp.setRelations(TransformUtil
+					.transformSysRoleResourcePermissionForQuery(relations));
+			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
+			rsp.setRetMsg("查询用户权限成功");
+		}
+		logger.info("findRoleResourcePermissionByRoleIds req:{},rsp:{}", req,
+				rsp);
 		return rsp;
 	}
 

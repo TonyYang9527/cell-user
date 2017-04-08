@@ -2,6 +2,7 @@ package com.cell.user.service.internal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -9,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.cell.user.condition.ListSysPermissionCondition;
@@ -176,4 +178,34 @@ public class PermissionService {
 		}
 		return sysPermissionMapper.countByExample(example);
 	}
+
+	/**
+	 * 根据主键获取 List<SysRole>.
+	 *
+	 * @param id
+	 *            the id
+	 * @return SysRole
+	 */
+	public List<SysPermission> findSysPermissionByIds(Set<Long> ids) {
+
+		SysPermissionExample example = new SysPermissionExample();
+		SysPermissionExample.Criteria criteria = example.createCriteria();
+
+		if (!CollectionUtils.isEmpty(ids)) {
+			List<Long> values = new ArrayList<Long>(ids.size());
+			for (Long id : ids) {
+				values.add(id);
+			}
+			criteria.andIdIn(values);
+		}
+		List<SysPermission> permissions = sysPermissionMapper
+				.selectByExample(example);
+		logger.info("findSysPermissionByIds  ids:{},role:{}",
+				JSON.toJSONString(ids), JSON.toJSONString(permissions));
+		if (!CollectionUtils.isEmpty(permissions)) {
+			return permissions;
+		}
+		return null;
+	}
+
 }

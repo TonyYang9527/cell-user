@@ -2,11 +2,13 @@ package com.cell.user.ifacade.facade;
 
 import com.cell.user.ifacade.request.resource.CreateSysResourceReq;
 import com.cell.user.ifacade.request.resource.DeleteSysResourceReq;
+import com.cell.user.ifacade.request.resource.FindSysResourceReq;
 import com.cell.user.ifacade.request.resource.GetSysResourceReq;
 import com.cell.user.ifacade.request.resource.ListSysResourceReq;
 import com.cell.user.ifacade.request.resource.UpdateSysResourceReq;
 import com.cell.user.ifacade.response.resource.CreateSysResourceRsp;
 import com.cell.user.ifacade.response.resource.DeleteSysResourceRsp;
+import com.cell.user.ifacade.response.resource.FindSysResourceRsp;
 import com.cell.user.ifacade.response.resource.GetSysResourceRsp;
 import com.cell.user.ifacade.response.resource.ListSysResourceRsp;
 import com.cell.user.ifacade.response.resource.UpdateSysResourceRsp;
@@ -52,4 +54,14 @@ public interface SysResourceFacade {
 	 * @return
 	 */
 	public GetSysResourceRsp getSysResource(GetSysResourceReq req);
+	
+	
+	
+	/**
+	 * 查询菜单列表
+	 * 
+	 * @param Req
+	 * @return
+	 */
+	public FindSysResourceRsp findSysResources(FindSysResourceReq req);
 }

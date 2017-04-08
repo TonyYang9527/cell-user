@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.cell.user.constant.Constants;
-import com.cell.user.dao.entiy.SysAuthority;
 import com.cell.user.dao.entiy.SysRole;
 import com.cell.user.ifacade.facade.SysRoleFacade;
 import com.cell.user.ifacade.request.role.CreateSysRoleReq;
@@ -19,7 +18,6 @@ import com.cell.user.ifacade.request.role.FindSysRoleReq;
 import com.cell.user.ifacade.request.role.GetSysRoleReq;
 import com.cell.user.ifacade.request.role.ListSysRoleReq;
 import com.cell.user.ifacade.request.role.UpdateSysRoleReq;
-import com.cell.user.ifacade.response.authority.FindSysAuthorityRsp;
 import com.cell.user.ifacade.response.role.CreateSysRoleRsp;
 import com.cell.user.ifacade.response.role.DeleteSysRoleRsp;
 import com.cell.user.ifacade.response.role.FindSysRoleRsp;

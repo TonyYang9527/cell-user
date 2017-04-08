@@ -2,6 +2,7 @@ package com.cell.user.service.internal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -114,18 +115,14 @@ public class RoleResourcePermissionService {
 		return true;
 	}
 
-	
-	
-	
-	
 	/**
 	 * 根据条件 查询 SysRoleResourcePermission列表.
 	 * 
 	 * @param record
 	 * @return PageResult
 	 */
-	public PageResult<SysRoleResourcePermissionVo> listSysRoleResourcePermission(ListRoleResourcePermissionCondition condition,
-			Page page) {
+	public PageResult<SysRoleResourcePermissionVo> listSysRoleResourcePermission(
+			ListRoleResourcePermissionCondition condition, Page page) {
 
 		if (page != null && page.isNeedTotalRecord()) {
 			int totalRecord = countSysRoleResourcePermission(condition);
@@ -168,9 +165,11 @@ public class RoleResourcePermissionService {
 			example.setLimitEnd(page.getPageSize());
 		}
 
-		List<SysRoleResourcePermission> relations = sysRoleResourcePermissionMapper.selectByExample(example);
+		List<SysRoleResourcePermission> relations = sysRoleResourcePermissionMapper
+				.selectByExample(example);
 		PageResult<SysRoleResourcePermissionVo> result = new PageResult<SysRoleResourcePermissionVo>();
-		result.setResult(TransformUtil.transformSysRoleResourcePermissionForQuery(relations));
+		result.setResult(TransformUtil
+				.transformSysRoleResourcePermissionForQuery(relations));
 		result.setPage(page);
 		return result;
 	}
@@ -181,7 +180,8 @@ public class RoleResourcePermissionService {
 	 * @param condition
 	 * @return int
 	 */
-	public int countSysRoleResourcePermission(ListRoleResourcePermissionCondition condition) {
+	public int countSysRoleResourcePermission(
+			ListRoleResourcePermissionCondition condition) {
 
 		SysRoleResourcePermissionExample example = new SysRoleResourcePermissionExample();
 		SysRoleResourcePermissionExample.Criteria criteria = example
@@ -209,5 +209,37 @@ public class RoleResourcePermissionService {
 		}
 
 		return sysRoleResourcePermissionMapper.countByExample(example);
+	}
+
+	/**
+	 * 根据主键获取SysRoleResourcePermission.
+	 *
+	 * @param id
+	 *            the id
+	 * @return SysRoleResourcePermission
+	 */
+	public List<SysRoleResourcePermission> getSysRoleResourcePermissionByRoleIds(
+			Set<Long> roleIds) {
+
+		SysRoleResourcePermissionExample example = new SysRoleResourcePermissionExample();
+		SysRoleResourcePermissionExample.Criteria criteria = example
+				.createCriteria();
+		
+		if (CollectionUtils.isNotEmpty(roleIds)) {
+			List<Long> values = new ArrayList<Long>(roleIds.size());
+			for (Long roleId : roleIds) {
+				values.add(roleId);
+			}
+			criteria.andRoleIdIn(values);
+		}
+		List<SysRoleResourcePermission> relations = sysRoleResourcePermissionMapper
+				.selectByExample(example);
+		logger.info(
+				"getSysRoleResourcePermissionByRoleIds  roleIds:{},relation:{}",
+				JSON.toJSONString(roleIds), JSON.toJSONString(relations));
+		if (CollectionUtils.isNotEmpty(relations)) {
+			return relations;
+	   	}
+		return null;
 	}
 }
