@@ -1,13 +1,11 @@
 package com.cell.user.ifacade.facade;
 
-import com.cell.user.ifacade.request.authority.FindSysAuthorityReq;
 import com.cell.user.ifacade.request.role.CreateSysRoleReq;
 import com.cell.user.ifacade.request.role.DeleteSysRoleReq;
 import com.cell.user.ifacade.request.role.FindSysRoleReq;
 import com.cell.user.ifacade.request.role.GetSysRoleReq;
 import com.cell.user.ifacade.request.role.ListSysRoleReq;
 import com.cell.user.ifacade.request.role.UpdateSysRoleReq;
-import com.cell.user.ifacade.response.authority.FindSysAuthorityRsp;
 import com.cell.user.ifacade.response.role.CreateSysRoleRsp;
 import com.cell.user.ifacade.response.role.DeleteSysRoleRsp;
 import com.cell.user.ifacade.response.role.FindSysRoleRsp;
