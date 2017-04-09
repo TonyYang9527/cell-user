@@ -16,8 +16,6 @@ import com.alibaba.fastjson.JSON;
 import com.cell.user.condition.ListSysResourceCondition;
 import com.cell.user.dao.entiy.SysResource;
 import com.cell.user.dao.entiy.SysResourceExample;
-import com.cell.user.dao.entiy.SysRole;
-import com.cell.user.dao.entiy.SysRoleExample;
 import com.cell.user.dao.mapper.SysResourceMapper;
 import com.cell.user.ifacade.request.resource.CreateSysResourceReq;
 import com.cell.user.ifacade.request.resource.UpdateSysResourceReq;
