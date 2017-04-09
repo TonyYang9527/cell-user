@@ -12,11 +12,13 @@ import com.cell.user.dao.entiy.SysUser;
 import com.cell.user.ifacade.facade.SysUserFacade;
 import com.cell.user.ifacade.request.user.CreateSysUserReq;
 import com.cell.user.ifacade.request.user.DeleteSysUserReq;
+import com.cell.user.ifacade.request.user.FindSysUserReq;
 import com.cell.user.ifacade.request.user.GetSysUserReq;
 import com.cell.user.ifacade.request.user.ListSysUserReq;
 import com.cell.user.ifacade.request.user.UpdateSysUserReq;
 import com.cell.user.ifacade.response.user.CreateSysUserRsp;
 import com.cell.user.ifacade.response.user.DeleteSysUserRsp;
+import com.cell.user.ifacade.response.user.FindSysUserRsp;
 import com.cell.user.ifacade.response.user.GetSysUserRsp;
 import com.cell.user.ifacade.response.user.ListSysUserRsp;
 import com.cell.user.ifacade.response.user.UpdateSysUserRsp;
@@ -124,12 +126,12 @@ public class SysUserService implements SysUserFacade {
 		SysUser vo = null;
 		if (req.getId() != null) {
 			vo = userService.getSysUserById(req.getId());
-		}else if (StringUtils.isNotEmpty(req.getUsername())){
-			vo =userService.getSysUserByUsername(req.getUsername());
-		}else{
-			vo =null;
+		} else if (StringUtils.isNotEmpty(req.getUsername())) {
+			vo = userService.getSysUserByOther(req.getUsername(), null, null);
+		} else {
+			vo = null;
 		}
-		
+
 		if (vo == null) {
 			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
 			rsp.setRetMsg("获取用户角色失败");
@@ -140,6 +142,32 @@ public class SysUserService implements SysUserFacade {
 			rsp.setRetMsg("查询用户角色成功");
 		}
 		logger.info("getSysUser req:{},rsp:{}", req, rsp);
+		return rsp;
+	}
+
+	@Override
+	public FindSysUserRsp findSysUsers(FindSysUserReq req) {
+
+		FindSysUserRsp rsp = new FindSysUserRsp();
+		// 添加校验
+		SysUser vo = null;
+		if (req != null) {
+			vo = userService.getSysUserByOther(req.getUsername(),
+					req.getEmail(), req.getMobile());
+		} else {
+			vo = null;
+		}
+
+		if (vo == null) {
+			rsp.setRetCode(Constants.RESPONSE_FAIL_CODE);
+			rsp.setRetMsg("获取用户角色失败");
+			return rsp;
+		} else {
+			rsp.setUser(TransformUtil.transformSysUserVoForQuery(vo));
+			rsp.setRetCode(Constants.RESPONSE_SUCCESS_CODE);
+			rsp.setRetMsg("查询用户角色成功");
+		}
+		logger.info("findSysUsers req:{},rsp:{}", req, rsp);
 		return rsp;
 	}
 }

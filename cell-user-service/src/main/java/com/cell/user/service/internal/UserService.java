@@ -55,19 +55,31 @@ public class UserService {
 	 * @param username
 	 * @return SysUser
 	 */
-	public SysUser getSysUserByUsername(String username) {
+	public SysUser getSysUserByOther(String username, String email,
+			String mobile) {
 
 		SysUserExample example = new SysUserExample();
 		SysUserExample.Criteria c = example.createCriteria();
-		
+
 		if (StringUtils.isNotEmpty(username)) {
 			c.andUsernameEqualTo(username);
 		}
-		
+
+		if (StringUtils.isNotEmpty(email)) {
+			c.andEmailEqualTo(email);
+		}
+
+		if (StringUtils.isNotEmpty(mobile)) {
+			c.andMobileEqualTo(mobile);
+		}
+
 		List<SysUser> users = sysUserMapper.selectByExample(example);
-		
-		logger.info("getSysUserByUsername  username:{},users:{}", JSON.toJSONString(username), JSON.toJSONString(users));
-		if (CollectionUtils.isNotEmpty(users)&&users.size()==1) {
+
+		logger.info(
+				"getSysUserByOther  username:{}, email:{}, mobile:{},users:{}",
+				JSON.toJSONString(username), JSON.toJSONString(email),
+				JSON.toJSONString(mobile), JSON.toJSONString(users));
+		if (CollectionUtils.isNotEmpty(users) && users.size() == 1) {
 			return users.get(0);
 		}
 		return null;

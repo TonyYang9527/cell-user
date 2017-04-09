@@ -2,11 +2,13 @@ package com.cell.user.ifacade.facade;
 
 import com.cell.user.ifacade.request.user.CreateSysUserReq;
 import com.cell.user.ifacade.request.user.DeleteSysUserReq;
+import com.cell.user.ifacade.request.user.FindSysUserReq;
 import com.cell.user.ifacade.request.user.GetSysUserReq;
 import com.cell.user.ifacade.request.user.ListSysUserReq;
 import com.cell.user.ifacade.request.user.UpdateSysUserReq;
 import com.cell.user.ifacade.response.user.CreateSysUserRsp;
 import com.cell.user.ifacade.response.user.DeleteSysUserRsp;
+import com.cell.user.ifacade.response.user.FindSysUserRsp;
 import com.cell.user.ifacade.response.user.GetSysUserRsp;
 import com.cell.user.ifacade.response.user.ListSysUserRsp;
 import com.cell.user.ifacade.response.user.UpdateSysUserRsp;
@@ -52,6 +54,15 @@ public interface SysUserFacade {
 	 * @return
 	 */
 	public GetSysUserRsp getSysUser(GetSysUserReq req);
+	
+	
+    /**
+     *查询角色列表
+     * 
+     * @param Req
+     * @return
+     */
+    public FindSysUserRsp findSysUsers(FindSysUserReq req);
 	
 
 }
