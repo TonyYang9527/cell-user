@@ -68,3 +68,6 @@ Spring Cloud构建微服务架构
 https://git.oschina.net/didispace/SpringBoot-Learning
 http://blog.csdn.net/k21325/article/details/52789829
 http://git.oschina.net/didispace/SpringBoot-Learning
+
+android studio 
+http://www.open-open.com/lib/view/open1433387390635.html
